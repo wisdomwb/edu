@@ -6,7 +6,48 @@
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width"/>
-	<link rel="stylesheet" type="text/css" href="css/core.css"></head>
+	<link rel="stylesheet" type="text/css" href="css/core.css">
+	<script type="text/javascript">
+	// 读取cookie
+	function getcookie () {
+		var cookie={};
+		var a=document.cookie;
+		if (a=="") {return cookie;}
+		var b=a.split("; ");
+		b.forEach(function  (item,index,array) {
+			var name=item.substring(0,item.indexOf('='));
+			name=encodeURIComponent(name);
+			var value=item.substring(item.indexOf('=')+1);
+			value=encodeURIComponent(value);
+			cookie[name]=value;
+		})
+		return cookie;
+	}
+	// 设置修改cookie
+	function setcookie (name,value,expires,path,domain,secure) {
+		var cookie=encodeURIComponent(name)+'='+encodeURIComponent(value);
+		if (expires) {cookie+='; expires='+expires.toGMTString()};
+		if(path){cookie+='; path='+path;}
+		if(domain){cookie+='; domain='+domain;}
+		if (secure) {cookie+='; secure='+secure};
+		document.cookie=cookie;
+	}
+	var cookieObj=getcookie();
+	window.onload=function () {
+		var saveTime=new Date();
+		saveTime.setMonth(saveTime.getMonth()+1);
+		var tipsbanner=document.getElementById('j-tipsbanner');
+		if (cookieObj.tip){
+			tipsbanner.style.display="none";
+		}
+	}
+	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
+	tipsbannerClose.addEventListener('click',function () {
+		tipsbanner.style.display="none";
+		setcookie("tip","value",saveTime);
+	})
+	</script>
+	</head>
 <body>
 	<div id="j-tipsbanner">
 		<div class="g-flow f-cb">
@@ -875,47 +916,6 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	// 读取cookie
-	function getcookie () {
-		var cookie={};
-		var a=document.cookie;
-		if (a=="") {return cookie;}
-		var b=a.split("; ");
-		b.forEach(function  (item,index,array) {
-			var name=item.substring(0,item.indexOf('='));
-			name=encodeURIComponent(name);
-			var value=item.substring(item.indexOf('=')+1);
-			value=encodeURIComponent(value);
-			cookie[name]=value;
-		})
-		return cookie;
-	}
-	// 设置修改cookie
-	function setcookie (name,value,expires,path,domain,secure) {
-		var cookie=encodeURIComponent(name)+'='+encodeURIComponent(value);
-		if (expires) {cookie+='; expires='+expires.toGMTString()};
-		if(path){cookie+='; path='+path;}
-		if(domain){cookie+='; domain='+domain;}
-		if (secure) {cookie+='; secure='+secure};
-		document.cookie=cookie;
-	}
-	var cookieObj=getcookie();
-	window.onload=function () {
-		var saveTime=new Date();
-		saveTime.setMonth(saveTime.getMonth()+1);
-		var tipsbanner=document.getElementById('j-tipsbanner');
-		if (cookieObj.tip){
-			tipsbanner.style.display="none";
-		}
-	}
-	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
-	tipsbannerClose.addEventListener('click',function () {
-		tipsbanner.style.display="none";
-		setcookie("tip","value",saveTime);
-	})
-				
 
-</script>
 </body>
 </html>
