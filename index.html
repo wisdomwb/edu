@@ -15,7 +15,7 @@
 				<a href="">立即查看></a>
 			</div>
 			<div class="f-fr">
-				<a href="">不再提醒</a>
+				<a href="" id="j-tipsbanner-close">不再提醒</a>
 			</div>
 		</div>
 	</div>
@@ -904,13 +904,18 @@
 	window.onload=function () {
 		var saveTime=new Date();
 		saveTime.setMonth(saveTime.getMonth()+1);
-		if (!cookieObj.tip) {
-			setcookie("tip","value",saveTime);
-		} else {
-			var tipsbanner=document.getElementById('j-tipsbanner');
+		var tipsbanner=document.getElementById('j-tipsbanner');
+		if (cookieObj.tip){
 			tipsbanner.style.display="none";
 		}
 	}
+	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
+	tipsbannerClose.addEventListener('click',function () {
+		tipsbanner.style.display="none";
+		setcookie("tip","value",saveTime);
+	})
+				
+
 </script>
 </body>
 </html>
