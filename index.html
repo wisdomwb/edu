@@ -7,48 +7,10 @@
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width"/>
 	<link rel="stylesheet" type="text/css" href="css/core.css">
-	<script type="text/javascript">
-	// 读取cookie
-	function getcookie () {
-		var cookie={};
-		var a=document.cookie;
-		if (a=="") {return cookie;}
-		var b=a.split("; ");
-		b.forEach(function  (item,index,array) {
-			var name=item.substring(0,item.indexOf('='));
-			name=encodeURIComponent(name);
-			var value=item.substring(item.indexOf('=')+1);
-			value=encodeURIComponent(value);
-			cookie[name]=value;
-		})
-		return cookie;
-	}
-	// 设置修改cookie
-	function setcookie (name,value,expires,path,domain,secure) {
-		var cookie=encodeURIComponent(name)+'='+encodeURIComponent(value);
-		if (expires) {cookie+='; expires='+expires.toGMTString()};
-		if(path){cookie+='; path='+path;}
-		if(domain){cookie+='; domain='+domain;}
-		if (secure) {cookie+='; secure='+secure};
-		document.cookie=cookie;
-	}
-	var cookieObj=getcookie();
-	window.onload=function () {
-		var saveTime=new Date();
-		saveTime.setMonth(saveTime.getMonth()+1);
-		var tipsbanner=document.getElementById('j-tipsbanner');
-		if (cookieObj.tip){
-			tipsbanner.style.display="none";
-		}
-	}
-	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
-	tipsbannerClose.addEventListener('click',function () {
-		tipsbanner.style.display="none";
-		setcookie("tip","value",saveTime);
-	})
-	</script>
+	
 	</head>
 <body>
+	<!-- 顶部通知 -->
 	<div id="j-tipsbanner">
 		<div class="g-flow f-cb">
 			<div class="f-fl">
@@ -56,19 +18,21 @@
 				<a href="">立即查看></a>
 			</div>
 			<div class="f-fr">
-				<a href="" id="j-tipsbanner-close">不再提醒</a>
+				<span id="j-tipsbanner-close">不再提醒</span>
 			</div>
 		</div>
 	</div>
-	<div class="g-wrap m-head" style="position:relative;">
+	<!-- /顶部通知 -->
+	<!-- logo及导航 -->
+	<div class="g-wrap g-head" style="position:relative;">
 		<div class="g-flow f-pr f-cb">
 			<div class="logo f-fl">
 				<a href="">
 					<img src="images/icon/logo.png" alt=""></a>
 			</div>
 			<div class="attention f-fl">
-				<a href="" class="concern">关注</a>
-				<a class="aware">
+				<a class="concern" id="j-concern">关注</a>
+				<a class="aware" id="j-aware">
 					已关注
 					<span class="vertical">|</span>
 					<span class="cancel">取消</span>
@@ -85,8 +49,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="m-discover m-discover-0"></div>
-	<div class="m-loginbox">
+	<!-- /logo及导航 -->
+	<!-- 登录弹窗 -->
+	<div class="m-discover m-discover-0" id="j-discover0"></div>
+	<div class="m-loginbox" id="j-loginbox">
 		<h3>登录网易云课堂</h3>
 		<form action="" id="fLogin">
 			<div class="item item0">账号</div>
@@ -94,7 +60,8 @@
 			<input type="submit" class="u-btn-submit" value="登 录" id="btnLogin"></form>
 		<a class="close"></a>
 	</div>
-	<div class="g-body">
+	<!-- /登录弹窗 -->
+		<!-- 轮播展示 -->
 		<div id="j-slide" class="m-slide">
 			<div class="f-pr u-slide">
 				<a href="http://open.163.com/">
@@ -110,6 +77,8 @@
 			-->
 		</div>
 	</div>
+	<!-- /轮播展示 -->
+	<!-- school导航 -->
 	<div class="g-flow m-school f-cb">
 		<div class="item f-fl f-cb">
 			<img src="images/icon/school0.png" alt="" class="f-fl">
@@ -142,6 +111,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- /school导航 -->
+	<!-- 工作环境 -->
 	<div class="m-show f-pr f-oh">
 		<ul class="gallery f-pa">
 			<li class="f-fl position">
@@ -156,8 +127,11 @@
 				<img src="images/show4.jpg" alt=""></li>
 		</ul>
 	</div>
+	<!-- /工作环境 -->
 	<div class="g-container g-wrap">
 		<div class="g-flow f-cb">
+			<!-- 课程列表 -->
+			<!-- 主栏 -->
 			<div class="g-main f-fl">
 				<div class="m-tab f-cb">
 					<h3 class="tab0 f-fl">产品设计</h3>
@@ -745,6 +719,7 @@
 						</div>
 					</li>
 				</ul>
+				<!-- 页码 -->
 				<nav class="m-page f-fr">
 					<a href="" class="pageprv"></a>
 					<a href="">1</a>
@@ -757,9 +732,12 @@
 					<a href="">8</a>
 					<a href="" class="pagenxt"></a>
 				</nav>
-
+				<!-- /页码 -->
 			</div>
+			<!-- /主栏 -->
+			<!-- 侧栏 -->
 			<div class="g-side f-fl">
+				<!-- 机构介绍 -->
 				<div class="m-intro">
 					<div class="title">机构介绍</div>
 					<div class="content">
@@ -768,12 +746,16 @@
 							<img src="images/video.jpg" alt=""></a>
 					</div>
 				</div>
+				<!-- /机构介绍 -->
+				<!-- 视频弹窗 -->
 				<div class="m-discover m-discover-0"></div>
 				<div class="m-videobox">
 					<h3>请观看下面的视频</h3>
 					<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4"  controls="controls" width="889px" height="538px"></video>
 					<a class="close"></a>
 				</div>
+				<!-- /视频弹窗 -->
+				<!-- 最热排行 -->
 				<div class="m-hot">
 					<div class="title">最热排行</div>
 					<ul class="list f-cb">
@@ -859,10 +841,13 @@
 						</li>
 					</ul>
 				</div>
+				<!-- /最热排行 -->
 			</div>
+			<!-- /侧栏 -->
 		</div>
 	</div>
-	<div class="g-wrap m-foot f-cb">
+	<!-- 尾部 -->
+	<div class="g-wrap g-foot f-cb">
 		<div class="g-flow f-cb">
 			<div class="cprt f-fl">
 				<div class="logo">
@@ -915,7 +900,94 @@
 			</div>
 		</div>
 	</div>
-</div>
+	<!-- /尾部 -->
+<script type="text/javascript">
+	// 序列化查询参数
+	function serialize(data) {
+		if (!data) {return '';}
+		var pairs=[];
+		for(var name in data){
+			if (!data.hasOwnProperty(name)) {continue;}
+			if (typeof data[name]=='function') {continue;}
+			var value=data[name].toString();
+			name=encodeURIComponent(name);//对name和value进行解码
+			value=encodeURIComponent(value);
+			pairs.push(name+'='+value);
+		}
+		return pairs.join('&');
+	}
+	// Ajax请求GET方法封装
+	function get(url,options,callback) {
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function (callback) {
+			if (xhr.readyState==4) {
+				if (xhr.status>=200&&xhr.status<300||xhr.status==304) {
+					callback(xhr.responseText);
+				} else {
+					alert('Request was unsuccessful '+xhr.status);
+				}
+			}
+		}
+		var url=url+serialize(options);
+		xhr.open('get',url,true);
+		xhr.send(null);
+	}
+	// 读取cookie
+	function getcookie () {
+		var cookie={};
+		var a=document.cookie;
+		if (a=="") {return cookie;}
+		var b=a.split("; ");
+		b.forEach(function  (item,index,array) {
+			var name=item.substring(0,item.indexOf('='));
+			name=encodeURIComponent(name);
+			var value=item.substring(item.indexOf('=')+1);
+			value=encodeURIComponent(value);
+			cookie[name]=value;
+		})
+		return cookie;
+	}
+	// 设置修改cookie
+	function setcookie (name,value,expires,path,domain,secure) {
+		var cookie=encodeURIComponent(name)+'='+encodeURIComponent(value);
+		if (expires) {cookie+='; expires='+expires.toGMTString()};
+		if(path){cookie+='; path='+path;}
+		if(domain){cookie+='; domain='+domain;}
+		if (secure) {cookie+='; secure='+secure};
+		document.cookie=cookie;
+	}
 
+	var tipsbanner=document.getElementById('j-tipsbanner');
+	var saveTime=new Date();
+	saveTime.setMonth(saveTime.getMonth()+1);
+	var cookie=getcookie();
+	window.onload=function () {
+		if (cookie.tip){
+			tipsbanner.style.display="none";
+		}
+	}
+	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
+	tipsbannerClose.addEventListener('click',function () {
+		tipsbanner.style.display="none";
+		setcookie("tip","value",saveTime);
+	})
+	var concern=document.getElementById('j-concern');
+	var aware=document.getElementById('j-aware');
+	var discover0=document.getElementById('j-discover0');
+	var loginbox=document.getElementById('j-loginbox');
+	/*concern.addEventListener('click',function  () {
+		if (cookie.loginSuc) {
+			get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
+				if (data==1) {
+					concern.style.display='none';
+					aware.style.display='inline-block';
+				}
+			})
+		} else{
+			discover0.style.display='block';
+			loginbox.style.display='block';
+		};
+	})*/
+	</script>
 </body>
 </html>
