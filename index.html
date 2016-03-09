@@ -962,8 +962,8 @@
 	saveTime.setMonth(saveTime.getMonth()+1);
 	var cookie=getcookie();
 	window.onload=function () {
-		if (cookie.tip){
-			tipsbanner.style.display="none";
+		if (!cookie.tip){
+			tipsbanner.style.display="block";
 		}
 	}
 	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
