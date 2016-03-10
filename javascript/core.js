@@ -99,6 +99,8 @@
 							setcookie("followSuc","value",saveTime);
 						}
 					})
-				})
-			};
-		})
+				}	
+			})
+		}
+	})		
+
