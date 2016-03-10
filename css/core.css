@@ -91,8 +91,11 @@ body{min-width: 961px;}
 .m-discover-0{z-index: 1000;}
 .m-loginbox{display:none;position: fixed;left: 50%;top: 50%;transform: translate(-50%,-50%);z-index: 1001;padding:25px 52px 40px 40px;background: #fff;}
 .m-loginbox h3{font-size: 18px;line-height: 28px;font-weight: normal;color: #444;}
-.m-loginbox .item{width: 293px;height: 43px;line-height: 43px;cursor:text;background:#fafafa;text-indent: 11px;border:1px solid #dfdfdf;box-shadow: 2px 2px 0  0 #f1f1f1 inset;font-size: 16px;color: #ccc;}
-.m-loginbox .item0{margin-top: 15px;margin-bottom: 15px;}
+.m-loginbox .item0{margin-top: 15px;}
+.m-loginbox .item1{margin-top: 15px;}
+.m-loginbox .u-txt{background: #fafafa;outline: 1px solid #dfdfdf;box-shadow: 2px 2px 0  0 #f1f1f1 inset;}
+.u-txt .txt{width: 273px;height: 20px;padding:10px 0 13px;line-height: 20px;font-size: 16px;text-indent: .5em;background: transparent;}
+.u-txt .placeholder{position: absolute;left:5px;top:12px;color: #ccc;font-size: 16px;}
 .m-loginbox .u-btn-submit{width: 293px;height: 46px;line-height: 40px;margin-top:29px;box-shadow: 2px 2px 0 0 #d5e3da;cursor:pointer;text-align: center;background: url(../images/icon/button-bd.png) repeat-x;color: #fff;font-size: 16px;}
 .m-loginbox .close{position: absolute;width:12px;height:11px;top:10px;right:8px;background: url(../images/icon/close1.png);}
 /**/
@@ -100,7 +103,7 @@ body{min-width: 961px;}
 @media screen and (min-width: 1205px){
 	.m-slide a{width: 100%;}
 }*/
-/*上面的向左时会向右跳一下*/
+/*轮播展示*/
 .m-slide a{display: block;width: 961px;height:460px;position: relative;overflow: hidden;}
 @media screen and (min-width: 978px){/*窗口978，右侧的滑动条占据了一部分，显示961*/
 	.m-slide a{width: 100%;}
