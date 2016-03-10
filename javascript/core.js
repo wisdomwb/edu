@@ -86,21 +86,24 @@
 		} else{//若未设置登录cookie则弹出登录框
 			discover0.style.display='block';
 			loginbox.style.display='block';
-			options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
-			get('http://study.163.com /webDev/login.htm',options,function  (data) {//登录
-				if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API
-					setcookie('loginSuc','value',saveTime);
-					discover0.style.display='none';
-					loginbox.style.display='none';
-					get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
-						if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
-							concern.style.display='none';
-							aware.style.display='inline-block';
-							setcookie("followSuc","value",saveTime);
-						}
-					})
-				}	
+			btnLogin.addEventListener('click',function () {//点击登录按钮
+				options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
+				get('http://study.163.com /webDev/login.htm',options,function  (data) {//登录
+					if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API
+						setcookie('loginSuc','value',saveTime);
+						discover0.style.display='none';
+						loginbox.style.display='none';
+						get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
+							if (data==1) {//若关注成功则设置关注成功的cookie，并修改页面
+								concern.style.display='none';
+								aware.style.display='inline-block';
+								setcookie("followSuc","value",saveTime);
+							}
+						})
+					}	
+				})
 			})
+			
 		}
 	})		
 
