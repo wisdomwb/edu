@@ -55,59 +55,50 @@
 
 	var tipsbanner=document.getElementById('j-tipsbanner');
 	var saveTime=new Date();
-	saveTime.setMonth(saveTime.getMonth()+1);
+	saveTime.setMonth(saveTime.getMonth()+1);//cookie保存时间
 	var cookie=getcookie();
 	window.onload=function () {
-		if (!cookie.tip){
+		if (!cookie.tip){//无顶栏通知cookie则显示顶栏通知
 			tipsbanner.style.display="block";
 		}
 	}
 	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
-	tipsbannerClose.addEventListener('click',function () {
+	tipsbannerClose.addEventListener('click',function () {//点击“不再显示”则关掉顶栏通知，同时设置cookie
 		tipsbanner.style.display="none";
 		setcookie("tip","value",saveTime);
 	})
-	var concern=document.getElementById('j-concern');
+	var concern=document.getElementById('j-concern');//关注按钮
 	var aware=document.getElementById('j-aware');
 	var discover0=document.getElementById('j-discover0');
 	var loginbox=document.getElementById('j-loginbox');
-	var fLogin_username_input=document.getElementById('fLogin_username_input');
-	var fLogin_password_input=document.getElementById('fLogin_password_input');
-	var btnLogin=document.getElementById('btnLogin');
+	var fLogin_username_input=document.getElementById('fLogin_username_input');//用户名输入框
+	var fLogin_password_input=document.getElementById('fLogin_password_input');//密码输入框
+	var btnLogin=document.getElementById('btnLogin');//提交按钮
 	concern.addEventListener('click',function  () {
-		if (cookie.loginSuc) {
+		if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
 			get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
-				if (data==1) {
+				if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
 					concern.style.display='none';
 					aware.style.display='inline-block';
 					setcookie("followSuc","value",saveTime);
 				}
 			})
-		} else{
+		} else{//若未设置登录cookie则弹出登录框
 			discover0.style.display='block';
 			loginbox.style.display='block';
-			options={userName:fLogin_username_input.value,password:fLogin_password_input.value}
-			get('http://study.163.com /webDev/login.htm',options,function  (data) {
-				if (data==1) {
-					concern.style.display='none';
-					aware.style.display='inline-block';
-					setcookie("followSuc","value",saveTime);
-				};
-			})
-		};
-	})
-	// label隐藏 、出现
-	var fLogin_username=document .getElementById('fLogin_username');
-	var fLogin_password=document.getElementById('fLogin_password');
-	fLogin_username_input.addEventListener('focus',function  () {
-		fLogin_username.style.display='none';
-	})
-	fLogin_username_input.addEventListener('blur',function  () {
-		fLogin_username.style.display='block';
-	})
-	fLogin_password_input.addEventListener('focus',function  () {
-		fLogin_password.style.display='none';
-	})
-	fLogin_password_input.addEventListener('blur',function  () {
-		fLogin_password.style.display='block';
-	})
+			options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
+			get('http://study.163.com /webDev/login.htm',options,function  (data) {//登录
+				if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API
+					setcookie('loginSuc','value',saveTime);
+					discover0.style.display='none';
+					loginbox.style.display='none';
+					get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
+						if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
+							concern.style.display='none';
+							aware.style.display='inline-block';
+							setcookie("followSuc","value",saveTime);
+						}
+					})
+				})
+			};
+		})
