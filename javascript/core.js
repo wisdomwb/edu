@@ -67,7 +67,7 @@ var $ = function (id) {
         elem.style.opacity='0';
         var val=0;
         function change () {
-          val+=0.005;
+          val+=0.04;
           elem.style.opacity=val;
           if (val<=1) {
             setTimeout(change,20)
@@ -95,7 +95,7 @@ var $ = function (id) {
 		if (!cookie.tip){
 			tipsbanner.style.display="block";
 		}
-		// 轮播图，仍有问题
+		// 轮播图
         var interval=setInterval(turn,5000);
         img0.addEventListener('mouseover',function  () {
         	clearInterval(interval);
@@ -135,6 +135,7 @@ var $ = function (id) {
 	var fLogin_username_input=$('fLogin_username_input');//用户名输入框
 	var fLogin_password_input=$('fLogin_password_input');//密码输入框
 	var btnLogin=$('btnLogin');//提交按钮
+	setcookie('loginSuc',"value",saveTime);//测试
 	concern.addEventListener('click',function  () {
 		if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
 			get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
