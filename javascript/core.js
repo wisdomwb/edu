@@ -157,7 +157,6 @@ var $ = function (id) {
 			discover0.style.display='block';
 			loginbox.style.display='block';
 			btnLogin.addEventListener('click',function () {//点击登录按钮
-				fLogin_username_input.value=toMD5(fLogin_username_input.value);//使用Md5加密该用户数据
 				fLogin_password_input.value=toMD5(fLogin_password_input.value);//使用Md5加密该用户数据
 				var options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
 				get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
