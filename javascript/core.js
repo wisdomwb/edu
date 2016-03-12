@@ -135,7 +135,7 @@ var $ = function (id) {
 	var fLogin_username_input=$('fLogin_username_input');//用户名输入框
 	var fLogin_password_input=$('fLogin_password_input');//密码输入框
 	var btnLogin=$('btnLogin');//提交按钮
-	setcookie('loginSuc',"value",saveTime);//测试
+	// setcookie('loginSuc',"value",saveTime);//测试关注
 	concern.addEventListener('click',function  () {
 		if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
 			get('http://study.163.com/webDev/attention.htm',{},function (data) {
