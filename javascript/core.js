@@ -19,7 +19,7 @@ var $ = function (id) {
 	// Ajax请求GET方法封装
 	function get(url,options,callback) {
 		var xhr=new XMLHttpRequest();
-		xhr.onreadystatechange=function (callback) {
+		xhr.onreadystatechange=function () {
 			if (xhr.readyState==4) {
 				if (xhr.status>=200&&xhr.status<300||xhr.status==304) {
 					callback(xhr.responseText);
@@ -138,7 +138,7 @@ var $ = function (id) {
 	setcookie('loginSuc',"value",saveTime);//测试
 	concern.addEventListener('click',function  () {
 		if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
-			get('http://study.163.com/webDev/attention.htm',{},function  (data) {
+			get('http://study.163.com/webDev/attention.htm',{},function (data) {
 				if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
 					concern.style.display='none';
 					aware.style.display='inline-block';
