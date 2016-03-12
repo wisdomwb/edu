@@ -28,7 +28,7 @@ var $ = function (id) {
 				}
 			}
 		}
-		var url=url+serialize(options);
+		var url=url+'?'+serialize(options);
 		xhr.open('get',url,true);
 		xhr.send(null);
 	}
