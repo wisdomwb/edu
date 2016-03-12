@@ -78,7 +78,7 @@ var $ = function (id) {
     //图片切换
 	var i=1;
 	var pointer=document.getElementsByClassName('pointer')[0].getElementsByTagName('i');
-	var slide_a=document.getElementById('slide_a');
+	var slide_a=$('slide_a');
     function turn () {
         var img0=$('img0');
         img0.src='images/banner'+i+'.jpg';
@@ -95,8 +95,8 @@ var $ = function (id) {
 		if (!cookie.tip){
 			tipsbanner.style.display="block";
 		}
-		// 轮播图
-        var interval=setInterval(turn,5000);
+		// 轮播图,为了网页更快加载暂时禁掉
+        /*var interval=setInterval(turn,5000);
         img0.addEventListener('mouseover',function  () {
         	clearInterval(interval);
         })
@@ -120,7 +120,7 @@ var $ = function (id) {
         	i=2;
         	turn();
         	interval=setInterval(turn,5000);
-		})
+		})*/
 	}
 	
 	var tipsbannerClose=$('j-tipsbanner-close');
@@ -138,7 +138,7 @@ var $ = function (id) {
 	setcookie('loginSuc',"value",saveTime);//测试
 	concern.addEventListener('click',function  () {
 		if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
-			get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
+			get('http://study.163.com/webDev/attention.htm',{},function  (data) {
 				if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
 					concern.style.display='none';
 					aware.style.display='inline-block';
@@ -149,13 +149,13 @@ var $ = function (id) {
 			discover0.style.display='block';
 			loginbox.style.display='block';
 			btnLogin.addEventListener('click',function () {//点击登录按钮
-				options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
-				get('http://study.163.com /webDev/login.htm',options,function  (data) {//登录
+				var options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
+				get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
 					if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API
 						setcookie('loginSuc','value',saveTime);
 						discover0.style.display='none';
 						loginbox.style.display='none';
-						get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
+						get('http://study.163.com/webDev/attention.htm',{},function  (data) {
 							if (data==1) {//若关注成功则设置关注成功的cookie，并修改页面
 								concern.style.display='none';
 								aware.style.display='inline-block';
