@@ -1,3 +1,7 @@
+// 封装$(id)方法获取对象
+var $ = function (id) {
+        return document.getElementById(id);
+    }
 // 序列化查询参数
 	function serialize(data) {
 		if (!data) {return '';}
@@ -53,27 +57,84 @@
 		document.cookie=cookie;
 	}
 
-	var tipsbanner=document.getElementById('j-tipsbanner');
+	var tipsbanner=$('j-tipsbanner');
 	var saveTime=new Date();
 	saveTime.setMonth(saveTime.getMonth()+1);//cookie保存时间
 	var cookie=getcookie();
+	// 元素淡入
+	function fadeIn (elem) {
+        elem.style.display='block';
+        elem.style.opacity='0';
+        var val=0;
+        function change () {
+          val+=0.005;
+          elem.style.opacity=val;
+          if (val<=1) {
+            setTimeout(change,20)
+          }
+        }
+        change();
+    }
+    //图片切换
+	var i=1;
+	var pointer=document.getElementsByClassName('pointer')[0].getElementsByTagName('i');
+	var slide_a=document.getElementById('slide_a');
+    function turn () {
+        var img0=$('img0');
+        img0.src='images/banner'+i+'.jpg';
+        fadeIn(img0);
+        switch(i){
+        	case 0:{slide_a.href='http://open.163.com';pointer[0].style.backgroundColor='#fff';pointer[1].style.backgroundColor='#000';pointer[2].style.backgroundColor='#000';}break;
+        	case 1:{slide_a.href='http://study.163.com';pointer[0].style.backgroundColor='#000';pointer[1].style.backgroundColor='#fff';pointer[2].style.backgroundColor='#000';}break;
+        	case 2:{slide_a.href='http://www.icourse.com';pointer[0].style.backgroundColor='#000';pointer[1].style.backgroundColor='#000';pointer[2].style.backgroundColor='#fff';}break;
+        }
+        if (i<=1) {i++} else{i=0}
+    }
 	window.onload=function () {
-		if (!cookie.tip){//无顶栏通知cookie则显示顶栏通知
+		//无顶栏通知cookie则显示顶栏通知
+		if (!cookie.tip){
 			tipsbanner.style.display="block";
 		}
+		// 轮播图，仍有问题
+        var interval=setInterval(turn,5000);
+        img0.addEventListener('mouseover',function  () {
+        	clearInterval(interval);
+        })
+        img0.addEventListener('mouseout',function  () {
+        	interval=setInterval(turn,5000);
+        })
+        pointer[0].addEventListener('click',function () {//给每一个小圆点添加点击事件
+        	clearInterval(interval);
+        	i=0;
+        	turn();
+        	interval=setInterval(turn,5000);
+		})
+		pointer[1].addEventListener('click',function () {
+        	clearInterval(interval);
+        	i=1;
+        	turn();
+        	interval=setInterval(turn,5000);
+		})
+		pointer[2].addEventListener('click',function () {
+        	clearInterval(interval);
+        	i=2;
+        	turn();
+        	interval=setInterval(turn,5000);
+		})
 	}
-	var tipsbannerClose=document.getElementById('j-tipsbanner-close');
+	
+	var tipsbannerClose=$('j-tipsbanner-close');
 	tipsbannerClose.addEventListener('click',function () {//点击“不再显示”则关掉顶栏通知，同时设置cookie
 		tipsbanner.style.display="none";
 		setcookie("tip","value",saveTime);
 	})
-	var concern=document.getElementById('j-concern');//关注按钮
-	var aware=document.getElementById('j-aware');
-	var discover0=document.getElementById('j-discover0');
-	var loginbox=document.getElementById('j-loginbox');
-	var fLogin_username_input=document.getElementById('fLogin_username_input');//用户名输入框
-	var fLogin_password_input=document.getElementById('fLogin_password_input');//密码输入框
-	var btnLogin=document.getElementById('btnLogin');//提交按钮
+	var concern=$('j-concern');//关注按钮
+	var aware=$('j-aware');
+	var discover0=$('j-discover0');
+	var loginbox=$('j-loginbox');
+	var fLogin_username_input=$('fLogin_username_input');//用户名输入框
+	var fLogin_password_input=$('fLogin_password_input');//密码输入框
+	var btnLogin=$('btnLogin');//提交按钮
 	concern.addEventListener('click',function  () {
 		if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
 			get('http://study.163.com /webDev/ attention.htm',{},function  (data) {
