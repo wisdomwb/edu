@@ -169,7 +169,7 @@ concern.addEventListener('click',function  () {
 			// fLogin_password_input.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
 			var options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
-				if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API
+				if (data==0) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API
 					setcookie('loginSuc','value',saveTime);
 					discover0.style.display='none';
 					loginbox.style.display='none';
@@ -187,12 +187,12 @@ concern.addEventListener('click',function  () {
 	}
 })		
 //取消关注,删除关注成功cookie,修改页面
-/*var cancel=$('j-cancel');
+var cancel=$('j-cancel');
 cancel.addEventListener('click',function  () {
 	removecookie('followSuc',path,domain);
 	concern.style.display='inline-block';
 	aware.style.display='none';
-})*/
+})
 // 获取课程列表
 /*var listdata='{
 	"totalCount": 80,
