@@ -109,6 +109,8 @@ for (var i = 0; i < slide_list.length; i++) {
 		interval=setInterval(turn,5000);
 	})
 };
+var concern=$('j-concern');//关注按钮
+var aware=$('j-aware');
 window.onload=function () {
 	//无顶栏通知cookie则显示顶栏通知
 	if (!cookie.tip){
@@ -153,8 +155,6 @@ tipsbannerClose.addEventListener('click',function () {//点击“不再显示”
 	tipsbanner.style.display="none";
 	setcookie("tip","value",saveTime);
 })
-var concern=$('j-concern');//关注按钮
-var aware=$('j-aware');
 var discover0=$('j-discover0');
 var loginbox=$('j-loginbox');
 var fLogin_username_input=$('fLogin_username_input');//用户名输入框
