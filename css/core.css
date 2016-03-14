@@ -103,12 +103,10 @@ body{min-width: 961px;}
 	.m-slide a{width: 100%;}
 }*/
 /*轮播展示*/
-.m-slide a{display: block;width: 961px;height:460px;position: relative;overflow: hidden;}
-@media screen and (min-width: 978px){/*窗口978，右侧的滑动条占据了一部分，显示961*/
-	.m-slide a{width: 100%;}
-}
-.m-slide img{position: absolute;left: 50%;margin-left: -826px;}
-.m-slide .pointer{left: 480.5px;transform: translateX(-50%);width: 52px;height: 10px;bottom: 20px;font-size: 0;}
+.m-slide{width: 100%;height: 460px;font-size: 0;overflow: hidden;}
+#j-slide{position:absolute;top:0;left: 50%;margin-left: -826px;height:460px;}
+#j-slide li{position: absolute;}
+.m-slide .pointer{left: 480.5px;transform: translateX(-50%);width: 52px;height: 10px;bottom: 20px;font-size: 0;z-index: 11;}
 @media screen and (min-width: 978px){
 	.m-slide .pointer{left: 50%;}
 }

@@ -81,61 +81,67 @@ function fadeIn (elem) {
     }
     change();
 }
-//图片切换
-var i=1;
-var pointer=document.getElementsByClassName('pointer')[0].getElementsByTagName('i');
-var slide_a=$('slide_a');
-function turn () {
-    var img0=$('img0');
-    img0.src='images/banner'+i+'.jpg';
-    fadeIn(img0);
-    switch(i){
-    	case 0:{slide_a.href='http://open.163.com';pointer[0].style.backgroundColor='#fff';pointer[1].style.backgroundColor='#000';pointer[2].style.backgroundColor='#000';}break;
-    	case 1:{slide_a.href='http://study.163.com';pointer[0].style.backgroundColor='#000';pointer[1].style.backgroundColor='#fff';pointer[2].style.backgroundColor='#000';}break;
-    	case 2:{slide_a.href='http://www.icourse.com';pointer[0].style.backgroundColor='#000';pointer[1].style.backgroundColor='#000';pointer[2].style.backgroundColor='#fff';}break;
-    }
-    if (i<=1) {i++} else{i=0}
+// 图片轮播
+var slide_list=$('j-slide').getElementsByTagName('li');
+var pointer=$('j-pointer').getElementsByTagName('i');
+for (var i = 0; i < slide_list.length; i++) {//初始化图片的堆叠顺序
+	slide_list[i].style.zIndex="9";
+};
+slide_list[0].style.zIndex="10";
+var m=1;
+function turn () {//图片切换
+	for (var i = 0; i < slide_list.length; i++) {
+		slide_list[i].style.zIndex="9";
+		pointer[i].style.background="#000";
+	};
+	slide_list[m].style.zIndex='10';
+	fadeIn(slide_list[m]);
+	pointer[m].style.background='#fff';
+	if (m<2) {m++} else{m=0};
 }
+var interval=setInterval(turn,5000);//每隔5秒钟切换一次
+// 鼠标移上图片时暂停轮播
+for (var i = 0; i < slide_list.length; i++) {
+	slide_list[i].addEventListener('mouseover',function  () {
+		clearInterval(interval);
+	})
+	slide_list[i].addEventListener('mouseout',function  () {
+		interval=setInterval(turn,5000);
+	})
+};
 window.onload=function () {
 	//无顶栏通知cookie则显示顶栏通知
 	if (!cookie.tip){
 		tipsbanner.style.display="block";
 	}
-	// 轮播图,为了网页更快加载暂时禁掉
-    var interval=setInterval(turn,5000);
-    img0.addEventListener('mouseover',function  () {
-    	clearInterval(interval);
-    })
-    img0.addEventListener('mouseout',function  () {
-    	interval=setInterval(turn,5000);
-    })
-    pointer[0].addEventListener('click',function () {//给每一个小圆点添加点击事件
-    	clearInterval(interval);
-    	i=0;
-    	turn();
-    	interval=setInterval(turn,5000);
-	})
-	pointer[1].addEventListener('click',function () {
-    	clearInterval(interval);
-    	i=1;
-    	turn();
-    	interval=setInterval(turn,5000);
-	})
-	pointer[2].addEventListener('click',function () {
-    	clearInterval(interval);
-    	i=2;
-    	turn();
-    	interval=setInterval(turn,5000);
-	})
-	/*for (var n = 0; n < pointer.length; n++) {//不知为什么使用for循环添加的click事件不行
-		pointer[n].addEventListener('click',function  () {
-			clearInterval(interval);
-			i=n;
-			turn();
-			interval=setInterval(turn,5000);	
-		})
-	}*/
 }
+//给每一个小圆点添加点击事件
+pointer[0].addEventListener('click',function () {
+	clearInterval(interval);
+	m=0;
+	turn();
+	interval=setInterval(turn,5000);
+})
+pointer[1].addEventListener('click',function () {
+	clearInterval(interval);
+	m=1;
+	turn();
+	interval=setInterval(turn,5000);
+})
+pointer[2].addEventListener('click',function () {
+	clearInterval(interval);
+	m=2;
+	turn();
+	interval=setInterval(turn,5000);
+})
+/*for (var i = 0; i < pointer.length; i++) {//不知为什么使用for循环添加的click事件不行
+	pointer[i].addEventListener('click',function  () {
+		clearInterval(interval);
+		m=i;
+		turn();
+		interval=setInterval(turn,5000);
+	})
+};*/
 
 var tipsbannerClose=$('j-tipsbanner-close');
 tipsbannerClose.addEventListener('click',function () {//点击“不再显示”则关掉顶栏通知，同时设置cookie
@@ -166,10 +172,10 @@ concern.addEventListener('click',function  () {
 		discover0.style.display='block';
 		loginbox.style.display='block';
 		btnLogin.addEventListener('click',function () {//点击登录按钮
-			// fLogin_password_input.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
+			fLogin_password_input.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
 			var options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
-				if (data==0) {//这里本应是“data==1”但是response总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
+				if (data==0) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
 					setcookie('loginSuc','value',saveTime);
 					discover0.style.display='none';
 					loginbox.style.display='none';
