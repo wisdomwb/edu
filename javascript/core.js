@@ -114,6 +114,11 @@ window.onload=function () {
 	if (!cookie.tip){
 		tipsbanner.style.display="block";
 	}
+	// 若存在关注成功cookie则显示已关注
+	if (cookie.followSuc) {
+		concern.style.display='none';
+		aware.style.display='inline-block';
+	}
 }
 //给每一个小圆点添加点击事件
 pointer[0].addEventListener('click',function () {
@@ -158,7 +163,6 @@ var btnLogin=$('btnLogin');//提交按钮
 function md5(msg){
         	return msg;
         }
-// setcookie('loginSuc',"value",saveTime);//测试关注
 concern.addEventListener('click',function  () {
 	if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
 		get('http://study.163.com/webDev/attention.htm',{},function (data) {
