@@ -195,7 +195,7 @@ concern.addEventListener('click',function  () {
 //取消关注,删除关注成功cookie,修改页面
 var cancel=$('j-cancel');
 cancel.addEventListener('click',function  () {
-	removecookie('followSuc',path,domain);
+	removecookie('followSuc','/edu','wisdomwb.github.io');
 	concern.style.display='inline-block';
 	aware.style.display='none';
 })
