@@ -207,7 +207,7 @@ cancel.addEventListener('click',function  () {
 var hotList=$('j-hotlist').getElementsByTagName('li');
 get('http://study.163.com/webDev/hotcouresByCategory.htm',{},function (data) {
 	for (var i = 0; i < hotList.length; i++) {
-		alert(data);
+		alert(data[0]);
 		// hotList[i].getElementsByTagName('img')[0].src=data[10-i]['smallPhotoUrl'];
 	}
 })
