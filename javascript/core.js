@@ -205,12 +205,13 @@ cancel.addEventListener('click',function  () {
 })
 // 最热排行
 var hotList=$('j-hotlist').getElementsByTagName('li');
+var responseHot;
 get('http://study.163.com/webDev/hotcouresByCategory.htm',{},function (data) {
-	for (var i = 0; i < hotList.length; i++) {
-		data=eval(data);
-		alert(data);
+	// for (var i = 0; i < hotList.length; i++) {
+		data=JSON.parse(data);
+		// alert(data);
 		// hotList[i].getElementsByTagName('img')[0].src=data[10-i]['smallPhotoUrl'];
-	}
+	// }
 })
 // 获取课程列表
 /*var listdata='{
