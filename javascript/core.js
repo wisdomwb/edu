@@ -212,8 +212,8 @@ get('http://study.163.com/webDev/couresByCategory.htm',{},function (data) {
 var hotList=$('j-hotlist').getElementsByTagName('li');
 var responseHot;
 get('http://study.163.com/webDev/hotcouresByCategory.htm',{},function (data) {
+	responseHot=JSON.parse(data);
 	for (var i = 0; i < hotList.length; i++) {
-		responseHot=JSON.parse(data);
 		hotList[i].getElementsByTagName('img')[0].src=responseHot[9-i]['smallPhotoUrl'];
 
 	}
