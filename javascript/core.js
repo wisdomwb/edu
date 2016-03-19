@@ -99,14 +99,14 @@ function turn () {//图片切换
 	pointer[m].style.background='#fff';
 	if (m<2) {m++} else{m=0};
 }
-var interval=setInterval(turn,5000);//每隔5秒钟切换一次
+var interval0=setInterval(turn,5000);//每隔5秒钟切换一次
 // 鼠标移上图片时暂停轮播
 for (var i = 0; i < slide_list.length; i++) {
 	slide_list[i].addEventListener('mouseover',function  () {
-		clearInterval(interval);
+		clearInterval(interval0);
 	})
 	slide_list[i].addEventListener('mouseout',function  () {
-		interval=setInterval(turn,5000);
+		interval0=setInterval(turn,5000);
 	})
 };
 var concern=$('j-concern');//关注按钮
@@ -124,29 +124,29 @@ window.onload=function () {
 }
 //给每一个小圆点添加点击事件
 pointer[0].addEventListener('click',function () {
-	clearInterval(interval);
+	clearInterval(interval0);
 	m=0;
 	turn();
-	interval=setInterval(turn,5000);
+	interval0=setInterval(turn,5000);
 })
 pointer[1].addEventListener('click',function () {
-	clearInterval(interval);
+	clearInterval(interval0);
 	m=1;
 	turn();
-	interval=setInterval(turn,5000);
+	interval0=setInterval(turn,5000);
 })
 pointer[2].addEventListener('click',function () {
-	clearInterval(interval);
+	clearInterval(interval0);
 	m=2;
 	turn();
-	interval=setInterval(turn,5000);
+	interval0=setInterval(turn,5000);
 })
 /*for (var i = 0; i < pointer.length; i++) {//不知为什么使用for循环添加的click事件不行
 	pointer[i].addEventListener('click',function  () {
-		clearInterval(interval);
+		clearInterval(interval0);
 		m=i;
 		turn();
-		interval=setInterval(turn,5000);
+		interval0=setInterval(turn,5000);
 	})
 };*/
 
@@ -211,12 +211,23 @@ get('http://study.163.com/webDev/couresByCategory.htm',{},function (data) {
 // 最热排行
 var hotList=$('j-hotlist').getElementsByTagName('li');
 var responseHot;
+var n=9;
+function roll() {
+	n++;
+	if (n==20) {n=9;}
+	for (var i = 0; i < hotList.length; i++) {
+		hotList[i].getElementsByTagName('img')[0].src=responseHot[n-i]['smallPhotoUrl'];
+
+	}
+}
 get('http://study.163.com/webDev/hotcouresByCategory.htm',{},function (data) {
 	responseHot=JSON.parse(data);
 	for (var i = 0; i < hotList.length; i++) {
 		hotList[i].getElementsByTagName('img')[0].src=responseHot[9-i]['smallPhotoUrl'];
 
 	}
+	var interval1=setInterval(roll,5000);
+	
 })
 // 获取课程列表
 /*var listdata='{
