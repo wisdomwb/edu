@@ -189,7 +189,7 @@ body{min-width: 961px;}
 .g-side .m-intro p{margin: 17px auto 7px 22px;font-size: 14px;color: #666;}
 .g-side .m-intro img{display: block;margin-left: 22px;}
 .g-side .m-hot ul{margin-top: 19px;}
-.g-side .m-hot li{margin:0 auto 20px 20px;}
+.g-side .m-hot li{margin:0 auto 20px 20px;cursor: pointer;}
 .g-side .m-hot img{width: 50px;height:50px;}
 .g-side .m-hot h4{width: 120px;margin-left: 62px;font-size: 14px;line-height: 14px;font-weight: normal;}
 .g-side .m-hot p{margin-left: 62px;margin-top: 13px;}

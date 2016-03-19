@@ -212,21 +212,27 @@ get('http://study.163.com/webDev/couresByCategory.htm',{},function (data) {
 var hotList=$('j-hotlist').getElementsByTagName('li');
 var responseHot;
 var n=9;
+// 课程刷新
 function roll() {
 	n++;
 	if (n==20) {n=9;}
 	for (var i = 0; i < hotList.length; i++) {
+		hotList[i].title=responseHot[n-i]['name'];//为什么title不在图片刷新时马上改变？
 		hotList[i].getElementsByTagName('img')[0].src=responseHot[n-i]['smallPhotoUrl'];
-
+		hotList[i].getElementsByTagName('h4')[0].innerHTML=responseHot[n-i]['name'];
+		hotList[i].getElementsByTagName('span')[0].innerHTML=responseHot[n-i]['learnerCount'];
 	}
 }
+// 获取最热排行
 get('http://study.163.com/webDev/hotcouresByCategory.htm',{},function (data) {
 	responseHot=JSON.parse(data);
 	for (var i = 0; i < hotList.length; i++) {
+		hotList[i].title=responseHot[9-i]['name'];
 		hotList[i].getElementsByTagName('img')[0].src=responseHot[9-i]['smallPhotoUrl'];
-
+		hotList[i].getElementsByTagName('h4')[0].innerHTML=responseHot[9-i]['name'];
+		hotList[i].getElementsByTagName('span')[0].innerHTML=responseHot[9-i]['learnerCount'];
 	}
-	var interval1=setInterval(roll,5000);
+	var interval1=setInterval(roll,5000);//每5秒刷新一次课程
 	
 })
 // 获取课程列表
