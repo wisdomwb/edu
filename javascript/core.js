@@ -204,10 +204,31 @@ cancel.addEventListener('click',function  () {
 	aware.style.display='none';
 })
 // 课程列表
-/*var classList=$('j-classlist').getElementsByTagName('li');
-get('http://study.163.com/webDev/couresByCategory.htm',{},function (data) {
-	data=JSON.parse(data);
-})*/
+var classList=$('j-classlist').getElementsByTagName('li');
+/*var pageNo=1;
+var psize=20;
+var type=10;*/
+var options={pageNo:1,psize:20,type:10};
+var responseCourse;
+get('http://study.163.com/webDev/couresByCategory.htm',options,function (data) {
+	responseCourse=JSON.parse(data);
+	console.log(responseCourse);
+	for (var i = 0; i < classList.length; i++) {
+		classList[i].getElementsByTagName('img')[0].src=responseCourse['list'][i]['middlePhotoUrl'];
+		classList[i].getElementsByTagName('img')[1].src=responseCourse['list'][i]['middlePhotoUrl'];
+		classList[i].getElementsByTagName('h4')[0].innerHTML=responseCourse['list'][i]['name'];
+		classList[i].getElementsByTagName('h4')[1].innerHTML=responseCourse['list'][i]['name'];
+		classList[i].getElementsByClassName('author0')[0].innerHTML=responseCourse['list'][i]['provider'];
+		classList[i].getElementsByClassName('author2')[0].innerHTML=responseCourse['list'][i]['provider'];
+		classList[i].getElementsByClassName('category2')[0].innerHTML=responseCourse['list'][i]['categoryName'];
+		classList[i].getElementsByClassName('num0')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
+		classList[i].getElementsByClassName('num2')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
+		classList[i].getElementsByClassName('price')[0].innerHTML='¥ '+responseCourse['list'][i]['price'];
+		classList[i].getElementsByClassName('description')[0].innerHTML=responseCourse['list'][i]['description'];
+
+	}
+	
+})
 // 最热排行
 var hotList=$('j-hotlist').getElementsByTagName('li');
 var responseHot;
