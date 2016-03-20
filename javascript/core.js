@@ -203,32 +203,104 @@ cancel.addEventListener('click',function  () {
 	concern.style.display='inline-block';
 	aware.style.display='none';
 })
+// tab切换
+var classTab=$('j-tab').getElementsByTagName('h3');
+var type=10;
+for (var i = 0; i < classTab.length; i++) {
+	classTab[i].addEventListener('click',function () {
+		var tabCrt=$('j-tab').getElementsByClassName('z-crt')[0];
+		tabCrt.setAttribute('class','f-fl');
+		this.setAttribute('class','z-crt f-fl');
+		if (classTab[0].getAttribute('class')=='z-crt f-fl') {
+			type=10;
+		} else {
+			type=20;
+		}
+		getClassList();
+	})
+}
 // 课程列表
 var classList=$('j-classlist').getElementsByTagName('li');
-/*var pageNo=1;
+// 页码切换
+var pages=$('j-page').getElementsByTagName('a');//获取页码集合
+var pageNo=1;
+for (var i = 0; i < pages.length; i++) {
+	pages[i].addEventListener('click',function () {
+		var pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
+		if (this.getAttribute('class')=='pageprv') {
+			if (pageCrt.previousElementSibling.getAttribute('class')!='pageprv') {
+				pageCrt.setAttribute("class","");
+				pageCrt.previousElementSibling.setAttribute('class',"z-crt");
+			}
+		} else{
+			if (this.getAttribute('class')=='pagenxt') {
+				if (pageCrt.nextElementSibling.getAttribute('class')!='pagenxt') {
+				pageCrt.setAttribute("class","");
+				pageCrt.nextElementSibling.setAttribute('class',"z-crt");
+			}
+			} else {
+				pageCrt.setAttribute("class","");
+				this.setAttribute('class','z-crt');
+			}
+		}
+		pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
+		for (var i = 0; i < pages.length; i++) {//确定当前页数
+			if (pages[i].getAttribute('class')=='z-crt') {pageNo=i;}
+		}
+		getClassList();//还未写
+	})
+}
+// 改变窗口大小时改变课程数量
+var node=classList[0];
 var psize=20;
-var type=10;*/
-var options={pageNo:1,psize:20,type:10};
-var responseCourse;
-get('http://study.163.com/webDev/couresByCategory.htm',options,function (data) {
-	responseCourse=JSON.parse(data);
-	console.log(responseCourse);
-	for (var i = 0; i < classList.length; i++) {
-		classList[i].getElementsByTagName('img')[0].src=responseCourse['list'][i]['middlePhotoUrl'];
-		classList[i].getElementsByTagName('img')[1].src=responseCourse['list'][i]['middlePhotoUrl'];
-		classList[i].getElementsByTagName('h4')[0].innerHTML=responseCourse['list'][i]['name'];
-		classList[i].getElementsByTagName('h4')[1].innerHTML=responseCourse['list'][i]['name'];
-		classList[i].getElementsByClassName('author0')[0].innerHTML=responseCourse['list'][i]['provider'];
-		classList[i].getElementsByClassName('author2')[0].innerHTML=responseCourse['list'][i]['provider'];
-		classList[i].getElementsByClassName('category2')[0].innerHTML=responseCourse['list'][i]['categoryName'];
-		classList[i].getElementsByClassName('num0')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
-		classList[i].getElementsByClassName('num2')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
-		classList[i].getElementsByClassName('price')[0].innerHTML='¥ '+responseCourse['list'][i]['price'];
-		classList[i].getElementsByClassName('description')[0].innerHTML=responseCourse['list'][i]['description'];
-
+/*var lastWidth;
+var newWidth=innerWidth;
+window.addEventListener('resize',function () {
+	lastWidth=newWidth;
+	newWidth=innerWidth;
+	if (lastWidth>=1205&&newWidth<1205) {
+		$('j-classlist').remove(classList[classList.length-1]);
+		$('j-classlist').remove(classList[classList.length-1]);
+		$('j-classlist').remove(classList[classList.length-1]);
+		$('j-classlist').remove(classList[classList.length-1]);
+		$('j-classlist').remove(classList[classList.length-1]);
+		psize=15;
 	}
+	if (lastWidth<1205&&newWidth>=1205) {
+		$('j-page').appendChild(node);
+		$('j-page').appendChild(node);
+		$('j-page').appendChild(node);
+		$('j-page').appendChild(node);
+		$('j-page').appendChild(node);
+		psize=20;
+	}
+	getClassList();
+})*/
+// 获取课程列表
+// var hello;
+function getClassList() {
+	var options={pageNo:pageNo,psize:psize,type:type};
+	var responseCourse;
+	get('http://study.163.com/webDev/couresByCategory.htm',options,function (data) {
+		responseCourse=JSON.parse(data);
+		// hello=responseCourse;
+		for (var i = 0; i < classList.length; i++) {
+			classList[i].getElementsByTagName('img')[0].src=responseCourse['list'][i]['middlePhotoUrl'];
+			classList[i].getElementsByTagName('img')[1].src=responseCourse['list'][i]['middlePhotoUrl'];
+			classList[i].getElementsByTagName('h4')[0].innerHTML=responseCourse['list'][i]['name'];
+			classList[i].getElementsByTagName('h4')[1].innerHTML=responseCourse['list'][i]['name'];
+			classList[i].getElementsByClassName('author0')[0].innerHTML=responseCourse['list'][i]['provider'];
+			classList[i].getElementsByClassName('author2')[0].innerHTML=responseCourse['list'][i]['provider'];
+			classList[i].getElementsByClassName('category2')[0].innerHTML=responseCourse['list'][i]['categoryName'];
+			classList[i].getElementsByClassName('num0')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
+			classList[i].getElementsByClassName('num2')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
+			classList[i].getElementsByClassName('price')[0].innerHTML='¥ '+responseCourse['list'][i]['price'];
+			classList[i].getElementsByClassName('description')[0].innerHTML=responseCourse['list'][i]['description'];
+
+		}
 	
-})
+	})
+}
 // 最热排行
 var hotList=$('j-hotlist').getElementsByTagName('li');
 var responseHot;
@@ -256,27 +328,3 @@ get('http://study.163.com/webDev/hotcouresByCategory.htm',{},function (data) {
 	var interval1=setInterval(roll,5000);//每5秒刷新一次课程
 	
 })
-// 获取课程列表
-/*var listdata='{
-	"totalCount": 80,
-	"totalPage": 8,
-	"pagination": {
-		"pageIndex" : 1, 
-		"pageSize" : 10, 
-		"totlePageCount": 20
-	},
- 	"list" : [
- 		{
- 			"id":"967019",
-			"name":"和秋叶一起学职场技能",
-			"bigPhotoUrl":"http://img1.ph.126.net/eg62.png",
-			"middlePhotoUrl":"http://img1.ph.126.net/eg62.png",
-			"smallPhotoUrl":" http://img1.ph.126.net/eg62.png ",
-			"provider":"秋叶",
-			"learnerCount":"23",
-			"price":"128",
-			"categoryName":"办公技能",
-			"description":"适用人群：最适合即将实习、求职、就职的大学生，入职一、二三年的新人。别以为那些职场老人都知道！"
-		}
-	]
-}'*/

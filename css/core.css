@@ -151,10 +151,9 @@ body{min-width: 961px;}
 	.g-main{width:980px;}
 }
 .g-main .m-tab{width:400px;height:50px;box-shadow: 0 1px 1px 0 #d4d3d3;}
-.g-main .m-tab h3{width: 200px;height: 50px;font:20px/50px "微软雅黑";text-align: center;}
-.g-main .m-tab h3.tab0{background: #39a030;color: #fff;}
-.g-main .m-tab h3.tab1{background: #fff;color: #666;}
-.g-main .m-list{height: 1245px;margin-top: 30px;margin-bottom:11px;}
+.g-main .m-tab h3{width: 200px;height: 50px;font:20px/50px "微软雅黑";text-align: center;cursor: pointer;background: #fff;color: #666;}
+.g-main .m-tab .z-crt{background: #39a030;color: #fff;cursor: default;}
+.g-main .m-list{height: 1245px;margin-top: 30px;margin-bottom:11px;/*overflow: hidden;*/}
 .g-main li{width: 225px;margin-right: 20px;margin-bottom:20px;background: #fff;box-shadow: 0 1px 1px 0 #e6e6e6;}
 /*.g-main li:hover{box-shadow: 0 0 0 1px #e6e6e6;}
 .g-main li:hover .title0{color: #39a030;}*//*应该是哪一种hover？*/
@@ -177,10 +176,10 @@ body{min-width: 961px;}
 .g-main .description{line-height: 24px;padding:17px 34px 18px 20px;font-size: 14px;background: #f8f8f8;color: #666;}
 .g-main .m-page{margin-right: 20px;text-align: center;font-size: 0;}
 .g-main .m-page a{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;/*关键*/line-height: 20px;color: #666;font-size: 14px;}
-.g-main .m-page .z-crt{color: #39a030;}
+.g-main .m-page .z-crt{color: #39a030;cursor: default;}
 .g-main .m-page a:hover{background: #9dd8b1;color: #fff;}
-.g-main .m-page .pageprv{width: 30px;margin-left: 0;background: #9dd8b1 url(../images/icon/pageprv.png) center center no-repeat;}
-.g-main .m-page .pagenxt{width: 30px;background: #9dd8b1 url(../images/icon/pagenxt.png) center center no-repeat;}
+.g-main .m-page .pageprv,.g-main .m-page .pageprv:hover{width: 30px;margin-left: 0;background: #9dd8b1 url(../images/icon/pageprv.png) center center no-repeat;}
+.g-main .m-page .pagenxt,.g-main .m-page .pagenxt:hover{width: 30px;background: #9dd8b1 url(../images/icon/pagenxt.png) center center no-repeat;}
 /*侧栏部分*/
 .g-side{width: 223px;}
 .g-side .m-intro,.g-side .m-hot{margin-bottom: 21px;background: #fff;box-shadow: 0 1px 1px 0 #d4d3d3;}
