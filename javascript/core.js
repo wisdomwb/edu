@@ -220,87 +220,151 @@ for (var i = 0; i < classTab.length; i++) {
 	})
 }
 // 课程列表
-var classList=$('j-classlist').getElementsByTagName('li');
-// 页码切换
-var pages=$('j-page').getElementsByTagName('a');//获取页码集合
+var oClassUl=$('j-classlist');
+var oPage=$('j-page');
 var pageNo=1;
-for (var i = 0; i < pages.length; i++) {
-	pages[i].addEventListener('click',function () {
-		var pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
-		if (this.getAttribute('class')=='pageprv') {
-			if (pageCrt.previousElementSibling.getAttribute('class')!='pageprv') {
-				pageCrt.setAttribute("class","");
-				pageCrt.previousElementSibling.setAttribute('class',"z-crt");
-			}
-		} else{
-			if (this.getAttribute('class')=='pagenxt') {
-				if (pageCrt.nextElementSibling.getAttribute('class')!='pagenxt') {
-				pageCrt.setAttribute("class","");
-				pageCrt.nextElementSibling.setAttribute('class',"z-crt");
-			}
-			} else {
-				pageCrt.setAttribute("class","");
-				this.setAttribute('class','z-crt');
-			}
-		}
-		pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
-		for (var i = 0; i < pages.length; i++) {//确定当前页数
-			if (pages[i].getAttribute('class')=='z-crt') {pageNo=i;}
-		}
-		getClassList();//还未写
-	})
-}
 // 改变窗口大小时改变课程数量
-var node=classList[0];
 var psize=20;
-/*var lastWidth;
-var newWidth=innerWidth;
 window.addEventListener('resize',function () {
-	lastWidth=newWidth;
-	newWidth=innerWidth;
-	if (lastWidth>=1205&&newWidth<1205) {
-		$('j-classlist').remove(classList[classList.length-1]);
-		$('j-classlist').remove(classList[classList.length-1]);
-		$('j-classlist').remove(classList[classList.length-1]);
-		$('j-classlist').remove(classList[classList.length-1]);
-		$('j-classlist').remove(classList[classList.length-1]);
+	if (innerWidth<1205) {
 		psize=15;
-	}
-	if (lastWidth<1205&&newWidth>=1205) {
-		$('j-page').appendChild(node);
-		$('j-page').appendChild(node);
-		$('j-page').appendChild(node);
-		$('j-page').appendChild(node);
-		$('j-page').appendChild(node);
+	} else {
 		psize=20;
 	}
 	getClassList();
-})*/
+})
+getClassList();
 // 获取课程列表
-// var hello;
 function getClassList() {
+	if (innerWidth<1205) {//判断浏览器窗口宽度
+		psize=15;
+	} else {
+		psize=20;
+	}
 	var options={pageNo:pageNo,psize:psize,type:type};
-	var responseCourse;
 	get('http://study.163.com/webDev/couresByCategory.htm',options,function (data) {
-		responseCourse=JSON.parse(data);
-		// hello=responseCourse;
-		for (var i = 0; i < classList.length; i++) {
-			classList[i].getElementsByTagName('img')[0].src=responseCourse['list'][i]['middlePhotoUrl'];
-			classList[i].getElementsByTagName('img')[1].src=responseCourse['list'][i]['middlePhotoUrl'];
-			classList[i].getElementsByTagName('h4')[0].innerHTML=responseCourse['list'][i]['name'];
-			classList[i].getElementsByTagName('h4')[1].innerHTML=responseCourse['list'][i]['name'];
-			classList[i].getElementsByClassName('author0')[0].innerHTML=responseCourse['list'][i]['provider'];
-			classList[i].getElementsByClassName('author2')[0].innerHTML=responseCourse['list'][i]['provider'];
-			classList[i].getElementsByClassName('category2')[0].innerHTML=responseCourse['list'][i]['categoryName'];
-			classList[i].getElementsByClassName('num0')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
-			classList[i].getElementsByClassName('num2')[0].innerHTML=responseCourse['list'][i]['learnerCount'];
-			classList[i].getElementsByClassName('price')[0].innerHTML='¥ '+responseCourse['list'][i]['price'];
-			classList[i].getElementsByClassName('description')[0].innerHTML=responseCourse['list'][i]['description'];
+		oClassUl.innerHTML='';
+		data=JSON.parse(data);
+		console.log(data.pagination.pageIndex);
+		console.log(data.pagination.pageSize);
+		console.log(data.pagination.totlePageCount);
+		for (var i = 0; i < data['list'].length; i++) {
+			//课程列表
+			var oLi=document.createElement('li');
+			oLi.setAttribute('class','f-fl f-pr')
+			oClassUl.appendChild(oLi);
+			var oImg=document.createElement('img');
+			var oName=document.createElement('h4');
+			var oProvider=document.createElement('p');
+			var oLearnerCount=document.createElement('div');
+			var oPrice=document.createElement('p');
+			var oDetail=document.createElement('div');
+			oImg.setAttribute('src',data['list'][i].middlePhotoUrl);
+			oImg.setAttribute('class','img0');
+			oName.setAttribute('class','f-toe title0');
+			oName.innerHTML=data['list'][i].name;
+			oProvider.setAttribute('class','author0');
+			oProvider.innerHTML=data['list'][i].provider;
+			oLearnerCount.setAttribute('class','num0');
+			oLearnerCount.innerHTML=data['list'][i].learnerCount;
+			oPrice.setAttribute('class','price');
+			oPrice.innerHTML=data['list'][i].price;
+			oDetail.setAttribute('class','detail f-pa');
+			oLi.appendChild(oImg);
+			oLi.appendChild(oName);
+			oLi.appendChild(oProvider);
+			oLi.appendChild(oLearnerCount);
+			oLi.appendChild(oPrice);
+			oLi.appendChild(oDetail);
 
+			var oUp=document.createElement('div');
+			var oDes=document.createElement('p');
+			oUp.setAttribute('class','up f-cb');
+			oDes.setAttribute('class','description');
+			oDes.innerHTML=data['list'][i].description;
+			oDetail.appendChild(oUp);
+			oDetail.appendChild(oDes); 
+			var oImg1=document.createElement('img');
+			var oRight=document.createElement('div');
+			oImg1.setAttribute('src',data['list'][i].middlePhotoUrl);
+			oImg1.setAttribute('class','img1');
+			oRight.setAttribute('class','right');
+			oUp.appendChild(oImg1);
+			oUp.appendChild(oRight);
+
+			var oName1=document.createElement('h4');
+			var oNum1=document.createElement('p');
+			var oAuthor1=document.createElement('p');
+			var oCategory1=document.createElement('p');
+			oName1.innerHTML=data['list'][i].name;
+			oNum1.setAttribute('class','num1');
+			oNum1.innerHTML='<i></i><span class="num2">'+oLearnerCount.innerHTML+'</span><span>人在学</span>';
+			oAuthor1.setAttribute('class','author1');
+			oAuthor1.innerHTML='<span>发布者：</span><span class="author2">'+oProvider.innerHTML+'</span>';
+			oCategory1.setAttribute('class','category1');
+			oCategory1.innerHTML='<span>分类：</span><span class="category2">'+data['list'][i].categoryName+'</span>';
+			oRight.appendChild(oName1);
+			oRight.appendChild(oNum1);
+			oRight.appendChild(oAuthor1);
+			oRight.appendChild(oCategory1);
 		}
-	
+		//页码
+		oPage.innerHTML='<a class="pageprv"></a>';
+		for (var i = 0; i < data.pagination.totlePageCount; i++) {
+			var oA=document.createElement('a');
+			if ((i+1)==pageNo) {oA.setAttribute('class','z-crt');}
+			oA.innerHTML=i+1;
+			oPage.appendChild(oA);
+		}
+		oPage.innerHTML+='<a class="pagenxt"></a>';
+		// 页码切换
+		var pages=$('j-page').getElementsByTagName('a');//获取页码集合
+		for (var i = 0; i < pages.length; i++) {
+			pages[i].addEventListener('click',function () {
+				var pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
+				if (this.getAttribute('class')=='pageprv') {
+					if (pageCrt.previousElementSibling.getAttribute('class')!='pageprv') {
+						pageCrt.setAttribute("class","");
+						pageCrt.previousElementSibling.setAttribute('class',"z-crt");
+					}
+				} else{
+					if (this.getAttribute('class')=='pagenxt') {
+						if (pageCrt.nextElementSibling.getAttribute('class')!='pagenxt') {
+						pageCrt.setAttribute("class","");
+						pageCrt.nextElementSibling.setAttribute('class',"z-crt");
+					}
+					} else {
+						pageCrt.setAttribute("class","");
+						this.setAttribute('class','z-crt');
+					}
+				}
+				pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
+				for (var i = 0; i < pages.length; i++) {//确定当前页数
+					if (pages[i].getAttribute('class')=='z-crt') {pageNo=i;}
+				}
+				getClassList();
+				scrollTo(0,1130);//跳转到课程列表顶部
+			})
+		}
 	})
 }
+// 视频浮层
+var oSvideo=document.getElementById('svideo');
+var oDiscover1=document.getElementById('discover1');
+var oVideobox=document.getElementById('video');
+var oPlayer=document.getElementById('player')
+var oClose1=document.getElementById('close1');
+oSvideo.addEventListener('click',function () {
+	oDiscover1.style.display='block';
+	oVideobox.style.display='block';
+	oPlayer.load();//重新加载
+	oPlayer.play();//播放
+})
+oClose1.addEventListener('click',function () {
+	oPlayer.pause();//暂停
+	oVideobox.style.display='none';
+	oDiscover1.style.display='none';
+})
 // 最热排行
 var hotList=$('j-hotlist').getElementsByTagName('li');
 var responseHot;

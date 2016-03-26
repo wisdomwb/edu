@@ -153,7 +153,7 @@ body{min-width: 961px;}
 .g-main .m-tab{width:400px;height:50px;box-shadow: 0 1px 1px 0 #d4d3d3;}
 .g-main .m-tab h3{width: 200px;height: 50px;font:20px/50px "微软雅黑";text-align: center;cursor: pointer;background: #fff;color: #666;}
 .g-main .m-tab .z-crt{background: #39a030;color: #fff;cursor: default;}
-.g-main .m-list{height: 1245px;margin-top: 30px;margin-bottom:11px;/*overflow: hidden;*/}
+.g-main .m-list{margin-top: 30px;margin-bottom:11px;}
 .g-main li{width: 225px;margin-right: 20px;margin-bottom:20px;background: #fff;box-shadow: 0 1px 1px 0 #e6e6e6;}
 /*.g-main li:hover{box-shadow: 0 0 0 1px #e6e6e6;}
 .g-main li:hover .title0{color: #39a030;}*//*应该是哪一种hover？*/
