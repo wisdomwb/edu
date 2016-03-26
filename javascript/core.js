@@ -64,6 +64,7 @@ function removecookie (name,path,domain) {
 	+';max-age=0';
 }
 var tipsbanner=$('j-tipsbanner');
+tipsbanner.style.display='none';
 var saveTime=new Date();
 saveTime.setMonth(saveTime.getMonth()+1);//cookie保存时间
 var cookie=getcookie();
