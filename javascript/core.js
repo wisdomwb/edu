@@ -343,7 +343,11 @@ function getClassList() {
 					if (pages[i].getAttribute('class')=='z-crt') {pageNo=i;}
 				}
 				getClassList();
-				scrollTo(0,1130);//跳转到课程列表顶部
+				if (tipsbanner.style.display=='none') {//切换页面时定位到课程列表顶部
+					scrollTo(0,1094);
+				} else {
+					scrollTo(0,1130);
+				}
 			})
 		}
 	})
