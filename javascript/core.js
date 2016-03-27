@@ -61,7 +61,7 @@ function removecookie (name,path,domain) {
 	document.cookie=name+'='
 	+'; path='+path
 	+'; domain='+domain
-	+';max-age=0';
+	+'; max-age=0';
 }
 var tipsbanner=$('j-tipsbanner');
 tipsbanner.style.display='none';//用js而不用css是为了可以取得tipsbanner.style.display的值
@@ -223,7 +223,7 @@ for (var i = 0; i < classTab.length; i++) {
 // 课程列表
 var classUl=$('j-classlist');
 var page=$('j-page');
-var pageNo=1;
+var pageNo=1;//当前页码
 // 改变窗口大小时改变课程数量
 var psize=20;
 window.addEventListener('resize',function () {
