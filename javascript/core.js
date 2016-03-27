@@ -64,7 +64,7 @@ function removecookie (name,path,domain) {
 	+';max-age=0';
 }
 var tipsbanner=$('j-tipsbanner');
-tipsbanner.style.display='none';
+tipsbanner.style.display='none';//用js而不用css是为了可以取得tipsbanner.style.display的值
 var saveTime=new Date();
 saveTime.setMonth(saveTime.getMonth()+1);//cookie保存时间
 var cookie=getcookie();
@@ -83,30 +83,30 @@ function fadeIn (elem) {
     change();
 }
 // 图片轮播
-var slide_list=$('j-slide').getElementsByTagName('li');
+var slideList=$('j-slide').getElementsByTagName('li');
 var pointer=$('j-pointer').getElementsByTagName('i');
-for (var i = 0; i < slide_list.length; i++) {//初始化图片的堆叠顺序
-	slide_list[i].style.zIndex="9";
+for (var i = 0; i < slideList.length; i++) {//初始化图片的堆叠顺序
+	slideList[i].style.zIndex="9";
 };
-slide_list[0].style.zIndex="10";
+slideList[0].style.zIndex="10";
 var m=1;
 function turn () {//图片切换
-	for (var i = 0; i < slide_list.length; i++) {
-		slide_list[i].style.zIndex="9";
+	for (var i = 0; i < slideList.length; i++) {
+		slideList[i].style.zIndex="9";
 		pointer[i].style.background="#000";
 	};
-	slide_list[m].style.zIndex='10';
-	fadeIn(slide_list[m]);
+	slideList[m].style.zIndex='10';
+	fadeIn(slideList[m]);
 	pointer[m].style.background='#fff';
 	if (m<2) {m++} else{m=0};
 }
 var interval0=setInterval(turn,5000);//每隔5秒钟切换一次
 // 鼠标移上图片时暂停轮播
-for (var i = 0; i < slide_list.length; i++) {
-	slide_list[i].addEventListener('mouseover',function  () {
+for (var i = 0; i < slideList.length; i++) {
+	slideList[i].addEventListener('mouseover',function  () {
 		clearInterval(interval0);
 	})
-	slide_list[i].addEventListener('mouseout',function  () {
+	slideList[i].addEventListener('mouseout',function  () {
 		interval0=setInterval(turn,5000);
 	})
 };
@@ -156,10 +156,10 @@ tipsbannerClose.addEventListener('click',function () {//点击“不再显示”
 	tipsbanner.style.display="none";
 	setcookie("tip","value",saveTime);
 })
-var discover0=$('j-discover0');
+var mask0=$('j-mask0');
 var loginbox=$('j-loginbox');
-var fLogin_username_input=$('fLogin_username_input');//用户名输入框
-var fLogin_password_input=$('fLogin_password_input');//密码输入框
+var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
+var fLoginPasswordInput=$('fLogin_password_input');//密码输入框
 var btnLogin=$('btnLogin');//提交按钮
 function md5(msg){
         	return msg;
@@ -174,15 +174,15 @@ concern.addEventListener('click',function  () {
 			}
 		})
 	} else{//若未设置登录cookie则弹出登录框
-		discover0.style.display='block';
+		mask0.style.display='block';
 		loginbox.style.display='block';
 		btnLogin.addEventListener('click',function () {//点击登录按钮
-			fLogin_password_input.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
-			var options={userName:fLogin_username_input.value,password:fLogin_password_input.value}//请求参数
+			fLoginPasswordInput.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
+			var options={userName:fLoginUsernameInput.value,password:fLogin_password_input.value}//请求参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
 				if (data==0) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
 					setcookie('loginSuc','value',saveTime);
-					discover0.style.display='none';
+					mask0.style.display='none';
 					loginbox.style.display='none';
 					get('http://study.163.com/webDev/attention.htm',{},function  (data) {
 						if (data==1) {//若关注成功则设置关注成功的cookie，并修改页面
@@ -221,8 +221,8 @@ for (var i = 0; i < classTab.length; i++) {
 	})
 }
 // 课程列表
-var oClassUl=$('j-classlist');
-var oPage=$('j-page');
+var classUl=$('j-classlist');
+var page=$('j-page');
 var pageNo=1;
 // 改变窗口大小时改变课程数量
 var psize=20;
@@ -244,80 +244,80 @@ function getClassList() {
 	}
 	var options={pageNo:pageNo,psize:psize,type:type};
 	get('http://study.163.com/webDev/couresByCategory.htm',options,function (data) {
-		oClassUl.innerHTML='';
+		classUl.innerHTML='';
 		data=JSON.parse(data);
 		console.log(data.pagination.pageIndex);
 		console.log(data.pagination.pageSize);
 		console.log(data.pagination.totlePageCount);
 		for (var i = 0; i < data['list'].length; i++) {
 			//课程列表
-			var oLi=document.createElement('li');
-			oLi.setAttribute('class','f-fl f-pr')
-			oClassUl.appendChild(oLi);
-			var oImg=document.createElement('img');
-			var oName=document.createElement('h4');
-			var oProvider=document.createElement('p');
-			var oLearnerCount=document.createElement('div');
-			var oPrice=document.createElement('p');
-			var oDetail=document.createElement('div');
-			oImg.setAttribute('src',data['list'][i].middlePhotoUrl);
-			oImg.setAttribute('class','img0');
-			oName.setAttribute('class','f-toe title0');
-			oName.innerHTML=data['list'][i].name;
-			oProvider.setAttribute('class','author0');
-			oProvider.innerHTML=data['list'][i].provider;
-			oLearnerCount.setAttribute('class','num0');
-			oLearnerCount.innerHTML=data['list'][i].learnerCount;
-			oPrice.setAttribute('class','price');
-			oPrice.innerHTML=data['list'][i].price;
-			oDetail.setAttribute('class','detail f-pa');
-			oLi.appendChild(oImg);
-			oLi.appendChild(oName);
-			oLi.appendChild(oProvider);
-			oLi.appendChild(oLearnerCount);
-			oLi.appendChild(oPrice);
-			oLi.appendChild(oDetail);
+			var li=document.createElement('li');
+			li.setAttribute('class','f-fl f-pr')
+			classUl.appendChild(li);
+			var img=document.createElement('img');
+			var name=document.createElement('h4');
+			var provider=document.createElement('p');
+			var learnerCount=document.createElement('div');
+			var price=document.createElement('p');
+			var detail=document.createElement('div');
+			img.setAttribute('src',data['list'][i].middlePhotoUrl);
+			img.setAttribute('class','img0');
+			name.setAttribute('class','f-toe title0');
+			name.innerHTML=data['list'][i].name;
+			provider.setAttribute('class','author0');
+			provider.innerHTML=data['list'][i].provider;
+			learnerCount.setAttribute('class','num0');
+			learnerCount.innerHTML=data['list'][i].learnerCount;
+			price.setAttribute('class','price');
+			price.innerHTML=data['list'][i].price;
+			detail.setAttribute('class','detail f-pa');
+			li.appendChild(img);
+			li.appendChild(name);
+			li.appendChild(provider);
+			li.appendChild(learnerCount);
+			li.appendChild(price);
+			li.appendChild(detail);
 
-			var oUp=document.createElement('div');
-			var oDes=document.createElement('p');
-			oUp.setAttribute('class','up f-cb');
-			oDes.setAttribute('class','description');
-			oDes.innerHTML=data['list'][i].description;
-			oDetail.appendChild(oUp);
-			oDetail.appendChild(oDes); 
-			var oImg1=document.createElement('img');
-			var oRight=document.createElement('div');
-			oImg1.setAttribute('src',data['list'][i].middlePhotoUrl);
-			oImg1.setAttribute('class','img1');
-			oRight.setAttribute('class','right');
-			oUp.appendChild(oImg1);
-			oUp.appendChild(oRight);
+			var up=document.createElement('div');
+			var des=document.createElement('p');
+			up.setAttribute('class','up f-cb');
+			des.setAttribute('class','description');
+			des.innerHTML=data['list'][i].description;
+			detail.appendChild(up);
+			detail.appendChild(des); 
+			var img1=document.createElement('img');
+			var right=document.createElement('div');
+			img1.setAttribute('src',data['list'][i].middlePhotoUrl);
+			img1.setAttribute('class','img1');
+			right.setAttribute('class','right');
+			up.appendChild(img1);
+			up.appendChild(right);
 
-			var oName1=document.createElement('h4');
-			var oNum1=document.createElement('p');
-			var oAuthor1=document.createElement('p');
-			var oCategory1=document.createElement('p');
-			oName1.innerHTML=data['list'][i].name;
-			oNum1.setAttribute('class','num1');
-			oNum1.innerHTML='<i></i><span class="num2">'+oLearnerCount.innerHTML+'</span><span>人在学</span>';
-			oAuthor1.setAttribute('class','author1');
-			oAuthor1.innerHTML='<span>发布者：</span><span class="author2">'+oProvider.innerHTML+'</span>';
-			oCategory1.setAttribute('class','category1');
-			oCategory1.innerHTML='<span>分类：</span><span class="category2">'+data['list'][i].categoryName+'</span>';
-			oRight.appendChild(oName1);
-			oRight.appendChild(oNum1);
-			oRight.appendChild(oAuthor1);
-			oRight.appendChild(oCategory1);
+			var name1=document.createElement('h4');
+			var num1=document.createElement('p');
+			var author1=document.createElement('p');
+			var category1=document.createElement('p');
+			name1.innerHTML=data['list'][i].name;
+			num1.setAttribute('class','num1');
+			num1.innerHTML='<i></i><span class="num2">'+learnerCount.innerHTML+'</span><span>人在学</span>';
+			author1.setAttribute('class','author1');
+			author1.innerHTML='<span>发布者：</span><span class="author2">'+provider.innerHTML+'</span>';
+			category1.setAttribute('class','category1');
+			category1.innerHTML='<span>分类：</span><span class="category2">'+data['list'][i].categoryName+'</span>';
+			right.appendChild(name1);
+			right.appendChild(num1);
+			right.appendChild(author1);
+			right.appendChild(category1);
 		}
 		//页码
-		oPage.innerHTML='<a class="pageprv"></a>';
+		page.innerHTML='<a class="pageprv"></a>';
 		for (var i = 0; i < data.pagination.totlePageCount; i++) {
 			var oA=document.createElement('a');
 			if ((i+1)==pageNo) {oA.setAttribute('class','z-crt');}
 			oA.innerHTML=i+1;
-			oPage.appendChild(oA);
+			page.appendChild(oA);
 		}
-		oPage.innerHTML+='<a class="pagenxt"></a>';
+		page.innerHTML+='<a class="pagenxt"></a>';
 		// 页码切换
 		var pages=$('j-page').getElementsByTagName('a');//获取页码集合
 		for (var i = 0; i < pages.length; i++) {
@@ -354,21 +354,21 @@ function getClassList() {
 	})
 }
 // 视频浮层
-var oSvideo=document.getElementById('svideo');
-var oDiscover1=document.getElementById('discover1');
-var oVideobox=document.getElementById('video');
-var oPlayer=document.getElementById('player')
-var oClose1=document.getElementById('close1');
-oSvideo.addEventListener('click',function () {
-	oDiscover1.style.display='block';
-	oVideobox.style.display='block';
-	oPlayer.load();//重新加载
-	oPlayer.play();//播放
+var sVideo=document.getElementById('svideo');
+var mask1=document.getElementById('j-mask1');
+var videobox=document.getElementById('video');
+var player=document.getElementById('player')
+var close1=document.getElementById('close1');
+sVideo.addEventListener('click',function () {
+	mask1.style.display='block';
+	videobox.style.display='block';
+	player.load();//重新加载
+	player.play();//播放
 })
-oClose1.addEventListener('click',function () {
-	oPlayer.pause();//暂停
-	oVideobox.style.display='none';
-	oDiscover1.style.display='none';
+close1.addEventListener('click',function () {
+	player.pause();//暂停
+	videobox.style.display='none';
+	mask1.style.display='none';
 })
 // 最热排行
 var hotList=$('j-hotlist').getElementsByTagName('li');
