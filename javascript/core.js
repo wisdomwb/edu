@@ -33,7 +33,7 @@ function get(url,options,callback) {
 	xhr.send(null);
 }
 // 读取cookie
-function getcookie () {
+function getCookie () {
 	var cookie={};
 	var a=document.cookie;
 	if (a=="") {return cookie;}
@@ -48,7 +48,7 @@ function getcookie () {
 	return cookie;
 }
 // 设置修改cookie
-function setcookie (name,value,expires,path,domain,secure) {
+function setCookie (name,value,expires,path,domain,secure) {
 	var cookie=encodeURIComponent(name)+'='+encodeURIComponent(value);
 	if (expires) {cookie+='; expires='+expires.toGMTString()};
 	if(path){cookie+='; path='+path;}
@@ -57,17 +57,21 @@ function setcookie (name,value,expires,path,domain,secure) {
 	document.cookie=cookie;
 }
 // 删除cookie
-function removecookie (name,path,domain) {
+/*function removeCookie (name,path,domain) {
 	document.cookie=name+'='
 	+'; path='+path
 	+'; domain='+domain
+	+'; max-age=0';
+}*/
+function removeCookie (name,path,domain) {
+	document.cookie=name+'='
 	+'; max-age=0';
 }
 var tipsbanner=$('j-tipsbanner');
 tipsbanner.style.display='none';//用js而不用css是为了可以取得tipsbanner.style.display的值
 var saveTime=new Date();
 saveTime.setMonth(saveTime.getMonth()+1);//cookie保存时间
-var cookie=getcookie();
+var cookie=getCookie();
 // 元素淡入
 function fadeIn (elem) {
     elem.style.display='block';
@@ -154,7 +158,7 @@ pointer[2].addEventListener('click',function () {
 var tipsbannerClose=$('j-tipsbanner-close');
 tipsbannerClose.addEventListener('click',function () {//点击“不再显示”则关掉顶栏通知，同时设置cookie
 	tipsbanner.style.display="none";
-	setcookie("tip","value",saveTime);
+	setCookie("tip","value",saveTime);
 })
 var mask0=$('j-mask0');
 var loginbox=$('j-loginbox');
@@ -170,7 +174,7 @@ concern.addEventListener('click',function  () {
 			if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
 				concern.style.display='none';
 				aware.style.display='inline-block';
-				setcookie("followSuc","value",saveTime);
+				setCookie("followSuc","value",saveTime);
 			}
 		})
 	} else{//若未设置登录cookie则弹出登录框
@@ -181,14 +185,14 @@ concern.addEventListener('click',function  () {
 			var options={userName:fLoginUsernameInput.value,password:fLogin_password_input.value}//请求参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
 				if (data==0) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
-					setcookie('loginSuc','value',saveTime);
+					setCookie('loginSuc','value',saveTime);
 					mask0.style.display='none';
 					loginbox.style.display='none';
 					get('http://study.163.com/webDev/attention.htm',{},function  (data) {
 						if (data==1) {//若关注成功则设置关注成功的cookie，并修改页面
 							concern.style.display='none';
 							aware.style.display='inline-block';
-							setcookie("followSuc","value",saveTime);
+							setCookie("followSuc","value",saveTime);
 						}
 					})
 				}	
@@ -200,7 +204,7 @@ concern.addEventListener('click',function  () {
 //取消关注,删除关注成功cookie,修改页面
 var cancel=$('j-cancel');
 cancel.addEventListener('click',function  () {
-	removecookie('followSuc','/edu','wisdomwb.github.io');
+	removeCookie('followSuc','/edu','wisdomwb.github.io');
 	concern.style.display='inline-block';
 	aware.style.display='none';
 })
