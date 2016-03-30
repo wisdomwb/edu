@@ -124,7 +124,8 @@ concern.addEventListener('click',function  () {
 							setCookie("followSuc","value",saveTime);
 						}
 					})
-				}	
+				}
+				else{alert('用户名或密码错误');}	
 			})
 		})
 		
