@@ -176,10 +176,13 @@ body{min-width: 961px;}
 .g-main .description{line-height: 24px;padding:17px 34px 18px 20px;font-size: 14px;background: #f8f8f8;color: #666;}
 .g-main .m-page{margin-right: 20px;text-align: center;font-size: 0;}
 .g-main .m-page a{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;/*关键*/line-height: 20px;color: #666;font-size: 14px;}
+.g-main .m-page span{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;line-height: 10px;color: #666;font-size: 14px;}
 .g-main .m-page .z-crt{color: #39a030;cursor: default;}
+.g-main .m-page .z-crt:hover{background: inherit;color: #39a030;}
 .g-main .m-page a:hover{background: #9dd8b1;color: #fff;}
 .g-main .m-page .pageprv,.g-main .m-page .pageprv:hover{width: 30px;margin-left: 0;background: #9dd8b1 url(../images/icon/pageprv.png) center center no-repeat;}
 .g-main .m-page .pagenxt,.g-main .m-page .pagenxt:hover{width: 30px;background: #9dd8b1 url(../images/icon/pagenxt.png) center center no-repeat;}
+.g-main .m-page .disabled,.g-main .m-page .disabled:hover{background-color: #ddd;cursor: default;}
 /*侧栏部分*/
 .g-side{width: 223px;}
 .g-side .m-intro,.g-side .m-hot{margin-bottom: 21px;background: #fff;box-shadow: 0 1px 1px 0 #d4d3d3;}

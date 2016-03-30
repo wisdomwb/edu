@@ -116,7 +116,7 @@ for (var i = 0; i < slideList.length; i++) {
 };
 var concern=$('j-concern');//关注按钮
 var aware=$('j-aware');
-window.onload=function () {
+window.onlad=function () {
 	//无顶栏通知cookie则显示顶栏通知
 	if (!cookie.tip){
 		tipsbanner.style.display="block";
@@ -166,7 +166,7 @@ var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
 var fLoginPasswordInput=$('fLogin_password_input');//密码输入框
 var btnLogin=$('btnLogin');//提交按钮
 function md5(msg){
-        	return msg;
+        	return msg;//这里有错，还未解决
         }
 concern.addEventListener('click',function  () {
 	if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
@@ -228,9 +228,9 @@ for (var i = 0; i < classTab.length; i++) {
 var classUl=$('j-classlist');
 var page=$('j-page');
 var pageNo=1;//当前页码
-// 改变窗口大小时改变课程数量
-var psize=20;
-window.addEventListener('resize',function () {
+var psize=20;//每一页的数据个数
+var totalPageCount;//总页数
+window.addEventListener('resize',function () {// 改变窗口大小时改变课程数量
 	if (innerWidth<1205) {
 		psize=15;
 	} else {
@@ -238,8 +238,7 @@ window.addEventListener('resize',function () {
 	}
 	getClassList();
 })
-getClassList();
-// 获取课程列表
+// 获取课程列表,修改页码显示
 function getClassList() {
 	if (innerWidth<1205) {//判断浏览器窗口宽度
 		psize=15;
@@ -250,14 +249,12 @@ function getClassList() {
 	get('http://study.163.com/webDev/couresByCategory.htm',options,function (data) {
 		classUl.innerHTML='';
 		data=JSON.parse(data);
-		console.log(data.pagination.pageIndex);
-		console.log(data.pagination.pageSize);
-		console.log(data.pagination.totlePageCount);
-		for (var i = 0; i < data['list'].length; i++) {
-			//课程列表
+		totalPageCount=data.pagination.totlePageCount;
+		for (var i = 0; i < data['list'].length; i++) {//创建课程列表
 			var li=document.createElement('li');
 			li.setAttribute('class','f-fl f-pr')
 			classUl.appendChild(li);
+			// 基本页面
 			var img=document.createElement('img');
 			var name=document.createElement('h4');
 			var provider=document.createElement('p');
@@ -281,7 +278,7 @@ function getClassList() {
 			li.appendChild(learnerCount);
 			li.appendChild(price);
 			li.appendChild(detail);
-
+			// 详细页面
 			var up=document.createElement('div');
 			var des=document.createElement('p');
 			up.setAttribute('class','up f-cb');
@@ -296,7 +293,6 @@ function getClassList() {
 			right.setAttribute('class','right');
 			up.appendChild(img1);
 			up.appendChild(right);
-
 			var name1=document.createElement('h4');
 			var num1=document.createElement('p');
 			var author1=document.createElement('p');
@@ -313,50 +309,132 @@ function getClassList() {
 			right.appendChild(author1);
 			right.appendChild(category1);
 		}
-		//页码
+		pageDisplay();
+	})
+}
+//页码显示
+function pageDisplay() {
+	if (pageNo==1) {
+		page.innerHTML='<a class="pageprv disabled"></a>';
+	} else {
 		page.innerHTML='<a class="pageprv"></a>';
-		for (var i = 0; i < data.pagination.totlePageCount; i++) {
-			var oA=document.createElement('a');
-			if ((i+1)==pageNo) {oA.setAttribute('class','z-crt');}
-			oA.innerHTML=i+1;
-			page.appendChild(oA);
+	}
+	
+	if (totalPageCount<=10) {//页数较少时
+		for (var i = 0; i < totalPageCount; i++) {
+			var a=document.createElement('a');
+			if ((i+1)==pageNo) {a.setAttribute('class','z-crt');}
+			a.innerHTML=i+1;
+			page.appendChild(a);
 		}
 		page.innerHTML+='<a class="pagenxt"></a>';
-		// 页码切换
-		var pages=$('j-page').getElementsByTagName('a');//获取页码集合
+	} else {//页数较多时
+		if (pageNo<=4) {//第一种布局
+			for (var i = 0; i < 5; i++) {
+				var a=document.createElement('a');
+				if ((i+1)==pageNo) {a.setAttribute('class','z-crt');}
+				a.innerHTML=i+1;
+				page.appendChild(a);
+			}
+			page.innerHTML+='<span>...</span><a>'+totalPageCount+'</a><a class="pagenxt"></a>';
+		}
+		if (pageNo>4&&pageNo<totalPageCount-3) {//第二种布局
+			page.innerHTML+='<a>1</a><span>...</span><a>'+(pageNo-2)+'</a><a>'+(pageNo-1)+'</a><a class="z-crt">'+pageNo+'</a><a>'+(pageNo+1)+'</a><a>'+(pageNo+2)+'</a><span>...</span><a>'+totalPageCount+'</a><a class="pagenxt"></a>';
+		}
+		if (pageNo>=totalPageCount-3) {//第三种布局
+			page.innerHTML+='<a>1</a><span>...</span><a>'+(pageNo-1)+'</a>';
+			for (var i = totalPageCount-3; i <=totalPageCount; i++) {
+				var a=document.createElement('a');
+				if (i==pageNo) {a.setAttribute('class','z-crt');}
+				a.innerHTML=i;
+				page.appendChild(a);
+			}
+			if (pageNo==totalPageCount) {
+				page.innerHTML+='<a class="pagenxt disabled"></a>';
+			} else {
+				page.innerHTML+='<a class="pagenxt"></a>';
+			}
+		}
+	}
+	//点击事件
+	var pageClick=function() {
+		/*var pages=$('j-page').getElementsByTagName('a');
 		for (var i = 0; i < pages.length; i++) {
-			pages[i].addEventListener('click',function () {
-				var pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
-				if (this.getAttribute('class')=='pageprv') {
-					if (pageCrt.previousElementSibling.getAttribute('class')!='pageprv') {
-						pageCrt.setAttribute("class","");
-						pageCrt.previousElementSibling.setAttribute('class',"z-crt");
+			pages[i].addEventListener('click',function () {//为显示的每个页码以及上一页、下一页添加点击事件
+				if (this.getAttribute('class')=='pageprv') {//点击上一页
+					if (pageNo==1) {//若当前页为首页则取消“上一页”的事件注册
+						alert('error');
+					} else {
+						pageNo--;
+						getClassList();
+						if (tipsbanner.style.display=='none') {//切换页面时定位到课程列表顶部
+							scrollTo(0,1094);
+						} else {
+							scrollTo(0,1130);
+						}
 					}
 				} else{
-					if (this.getAttribute('class')=='pagenxt') {
-						if (pageCrt.nextElementSibling.getAttribute('class')!='pagenxt') {
-						pageCrt.setAttribute("class","");
-						pageCrt.nextElementSibling.setAttribute('class',"z-crt");
-					}
-					} else {
-						pageCrt.setAttribute("class","");
-						this.setAttribute('class','z-crt');
+					if (this.getAttribute('class')=='pagenxt') {//点击下一页
+						if (pageNo==totalPageCount) {
+							return;
+						} else {
+							pageNo++;
+							getClassList();
+							if (tipsbanner.style.display=='none') {
+								scrollTo(0,1094);
+							} else {
+								scrollTo(0,1130);
+							}
+						}		
+					} else {//点击页码
+						pageNo=parseInt(this.innerHTML);
+						getClassList();
+						if (tipsbanner.style.display=='none') {
+							scrollTo(0,1094);
+						} else {
+							scrollTo(0,1130);
+						}
 					}
 				}
-				pageCrt=$('j-page').getElementsByClassName('z-crt')[0];
-				for (var i = 0; i < pages.length; i++) {//确定当前页数
-					if (pages[i].getAttribute('class')=='z-crt') {pageNo=i;}
-				}
+			})
+		}*/
+		var pages=$('j-page').getElementsByTagName('a');
+		pages[0].onclick=function () {//点击上一页
+			if (pageNo!=1) {//若当前页为首页则取消“上一页”的事件注册
+				pageNo--;
 				getClassList();
 				if (tipsbanner.style.display=='none') {//切换页面时定位到课程列表顶部
 					scrollTo(0,1094);
 				} else {
 					scrollTo(0,1130);
 				}
+			}
+		}
+		pages[pages.length-1].onclick=function () {//点击下一页
+			if (pageNo!=totalPageCount) {
+				pageNo++;
+				getClassList();
+				if (tipsbanner.style.display=='none') {
+					scrollTo(0,1094);
+				} else {
+					scrollTo(0,1130);
+				}
+			}
+		}
+		for (var i = 1; i < pages.length-1; i++) {//点击页码
+			pages[i].addEventListener('click',function () {
+				pageNo=parseInt(this.innerHTML);
+				getClassList();
+				if (tipsbanner.style.display=='none') {
+					scrollTo(0,1094);
+				} else {
+					scrollTo(0,1130);
+				}
 			})
 		}
-	})
+	}()
 }
+getClassList();//初始化课程列表
 // 视频浮层
 var sVideo=document.getElementById('svideo');
 var mask1=document.getElementById('j-mask1');
@@ -366,7 +444,7 @@ var close1=document.getElementById('close1');
 sVideo.addEventListener('click',function () {
 	mask1.style.display='block';
 	videobox.style.display='block';
-	player.load();//重新加载
+	player.lad();//重新加载
 	player.play();//播放
 })
 close1.addEventListener('click',function () {
