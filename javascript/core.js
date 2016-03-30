@@ -72,6 +72,8 @@ tipsbanner.style.display='none';//用js而不用css是为了可以取得tipsbann
 var saveTime=new Date();
 saveTime.setMonth(saveTime.getMonth()+1);//cookie保存的时间
 var cookie=getCookie();
+var concern=$('j-concern');//关注按钮
+var aware=$('j-aware');
 //无顶栏通知cookie则显示顶栏通知
 if (!cookie.tip){
 	tipsbanner.style.display="block";
@@ -86,8 +88,6 @@ tipsbannerClose.addEventListener('click',function () {//点击“不再显示”
 	tipsbanner.style.display="none";
 	setCookie("tip","value",saveTime);
 })
-var concern=$('j-concern');//关注按钮
-var aware=$('j-aware');
 var mask0=$('j-mask0');
 var loginbox=$('j-loginbox');
 var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
