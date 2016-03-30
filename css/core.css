@@ -80,7 +80,6 @@ body{min-width: 961px;}
 .g-head .attention .vertical{margin-left: 9px;margin-right:7px;color: #ccc;}
 .g-head .attention .cancel{margin-right: 6px;color: #999;text-indent: 0;}
 .g-head .fans{line-height: 89px;margin-left: 14px;color: #666;}
-/*.g-head span{margin-left: 7px;}*/
 .g-head .nav{line-height: 89px;font-size: 16px;}
 .g-head .nav a:hover{color: #39a030;}
 .g-head .cloud{margin: 0 55px 0 53px;}
@@ -96,12 +95,7 @@ body{min-width: 961px;}
 .m-loginbox .u-txt{background: #fafafa;outline: 1px solid #dfdfdf;box-shadow: 2px 2px 0  0 #f1f1f1 inset;}
 .u-txt .txt{width: 273px;height: 20px;padding:10px 0 13px;line-height: 20px;font-size: 16px;text-indent: .5em;background: transparent;}
 .m-loginbox .u-btn-submit{width: 293px;height: 46px;line-height: 40px;margin-top:29px;box-shadow: 2px 2px 0 0 #d5e3da;cursor:pointer;text-align: center;background: url(../images/icon/button-bd.png) repeat-x;color: #fff;font-size: 16px;}
-.m-loginbox .close{position: absolute;width:12px;height:11px;top:10px;right:8px;background: url(../images/icon/close1.png);}
-/**/
-/*.m-slide a{display: block;width: 1205px;height:460px;position: relative;overflow: hidden;}
-@media screen and (min-width: 1205px){
-	.m-slide a{width: 100%;}
-}*/
+.m-loginbox .close{position: absolute;width:12px;height:11px;top:10px;right:8px;background: url(../images/icon/close1.png);cursor: pointer;}
 /*轮播展示*/
 .m-slide{width: 100%;height: 460px;font-size: 0;overflow: hidden;}
 #j-slide{position:absolute;top:0;left: 50%;margin-left: -826px;height:460px;}
@@ -144,9 +138,6 @@ body{min-width: 961px;}
 /*主体部分*/
 .g-container{background: #f8f8f8;padding-top:81px;}
 .g-main{width: 735px;margin-right: 3px;margin-bottom: 120px;}
-/*@media screen and (min-width: 1205px){
-	.g-main{width:980px;)
-}*/
 @media screen and (min-width: 1205px){
 	.g-main{width:980px;}
 }
@@ -155,8 +146,6 @@ body{min-width: 961px;}
 .g-main .m-tab .z-crt{background: #39a030;color: #fff;cursor: default;}
 .g-main .m-list{margin-top: 30px;margin-bottom:11px;}
 .g-main li{width: 225px;margin-right: 20px;margin-bottom:20px;background: #fff;box-shadow: 0 1px 1px 0 #e6e6e6;}
-/*.g-main li:hover{box-shadow: 0 0 0 1px #e6e6e6;}
-.g-main li:hover .title0{color: #39a030;}*//*应该是哪一种hover？*/
 .g-main .img0{display: block;width:223px;height:124px;margin: 1px;margin-bottom: 0;}
 .g-main .title0{margin-top: 10px;margin-left: 5px;width: 210px;font-weight: normal;}
 .g-main .author0{margin: 10px auto 10px 5px;color: #999;}

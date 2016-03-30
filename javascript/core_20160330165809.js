@@ -88,61 +88,6 @@ tipsbannerClose.addEventListener('click',function () {//点击“不再显示”
 })
 var concern=$('j-concern');//关注按钮
 var aware=$('j-aware');
-var mask0=$('j-mask0');
-var loginbox=$('j-loginbox');
-var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
-var fLoginPasswordInput=$('fLogin_password_input');//密码输入框
-var btnLogin=$('btnLogin');//提交按钮
-function md5(msg){
-    return msg;//这里有错，还未解决
-}
-concern.addEventListener('click',function  () {
-	if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
-		get('http://study.163.com/webDev/attention.htm',{},function (data) {
-			if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
-				concern.style.display='none';
-				aware.style.display='inline-block';
-				setCookie("followSuc","value",saveTime);
-			}
-		})
-	} else{//若未设置登录cookie则弹出登录框
-		mask0.style.display='block';
-		loginbox.style.display='block';
-		btnLogin.addEventListener('click',function () {//点击登录按钮
-			//缺少表单验证
-			fLoginPasswordInput.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
-			var options={userName:fLoginUsernameInput.value,password:fLogin_password_input.value}//请求参数
-			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
-				if (data==0) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
-					setCookie('loginSuc','value',saveTime);
-					mask0.style.display='none';
-					loginbox.style.display='none';
-					get('http://study.163.com/webDev/attention.htm',{},function  (data) {
-						if (data==1) {//若关注成功则设置关注成功的cookie，并修改页面
-							concern.style.display='none';
-							aware.style.display='inline-block';
-							setCookie("followSuc","value",saveTime);
-						}
-					})
-				}	
-			})
-		})
-		
-	}
-})		
-var close0=$('j-close0');
-//登录窗口关闭按钮
-close0.addEventListener('click',function () {
-	mask0.style.display='none';
-	loginbox.style.display='none';
-})
-//取消关注,删除关注成功cookie,修改页面
-var cancel=$('j-cancel');
-cancel.addEventListener('click',function  () {
-	removeCookie('followSuc','/edu','wisdomwb.github.io');
-	concern.style.display='inline-block';
-	aware.style.display='none';
-})
 // 元素淡入
 function fadeIn (elem) {
     elem.style.display='block';
@@ -212,6 +157,54 @@ pointer[2].addEventListener('click',function () {
 		interval0=setInterval(turn,5000);
 	})
 };*/
+var mask0=$('j-mask0');
+var loginbox=$('j-loginbox');
+var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
+var fLoginPasswordInput=$('fLogin_password_input');//密码输入框
+var btnLogin=$('btnLogin');//提交按钮
+function md5(msg){
+    return msg;//这里有错，还未解决
+}
+concern.addEventListener('click',function  () {
+	if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
+		get('http://study.163.com/webDev/attention.htm',{},function (data) {
+			if (data==1) {//若关注成功则设置设置关注成功的cookie，并修改页面
+				concern.style.display='none';
+				aware.style.display='inline-block';
+				setCookie("followSuc","value",saveTime);
+			}
+		})
+	} else{//若未设置登录cookie则弹出登录框
+		mask0.style.display='block';
+		loginbox.style.display='block';
+		btnLogin.addEventListener('click',function () {//点击登录按钮
+			fLoginPasswordInput.value=md5(fLogin_password_input.value);//使用Md5加密该用户数据
+			var options={userName:fLoginUsernameInput.value,password:fLogin_password_input.value}//请求参数
+			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
+				if (data==0) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
+					setCookie('loginSuc','value',saveTime);
+					mask0.style.display='none';
+					loginbox.style.display='none';
+					get('http://study.163.com/webDev/attention.htm',{},function  (data) {
+						if (data==1) {//若关注成功则设置关注成功的cookie，并修改页面
+							concern.style.display='none';
+							aware.style.display='inline-block';
+							setCookie("followSuc","value",saveTime);
+						}
+					})
+				}	
+			})
+		})
+		
+	}
+})		
+//取消关注,删除关注成功cookie,修改页面
+var cancel=$('j-cancel');
+cancel.addEventListener('click',function  () {
+	removeCookie('followSuc','/edu','wisdomwb.github.io');
+	concern.style.display='inline-block';
+	aware.style.display='none';
+})
 // tab切换
 var classTab=$('j-tab').getElementsByTagName('h3');
 var type=10;
