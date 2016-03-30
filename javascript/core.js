@@ -56,13 +56,13 @@ function setCookie (name,value,expires,path,domain,secure) {
 	if (secure) {cookie+='; secure='+secure};
 	document.cookie=cookie;
 }
-// 删除cookie
-/*function removeCookie (name,path,domain) {
+/*function removeCookie (name,path,domain) {//这个有问题
 	document.cookie=name+'='
 	+'; path='+path
 	+'; domain='+domain
 	+'; max-age=0';
 }*/
+// 删除cookie
 function removeCookie (name,path,domain) {
 	document.cookie=name+'='
 	+'; max-age=0';
@@ -238,7 +238,7 @@ window.addEventListener('resize',function () {// 改变窗口大小时改变课�
 	}
 	getClassList();
 })
-// 获取课程列表,修改页码显示
+// 获取课程列表,更新页码显示
 function getClassList() {
 	if (innerWidth<1205) {//判断浏览器窗口宽度
 		psize=15;
@@ -358,49 +358,9 @@ function pageDisplay() {
 	}
 	//点击事件
 	var pageClick=function() {
-		/*var pages=$('j-page').getElementsByTagName('a');
-		for (var i = 0; i < pages.length; i++) {
-			pages[i].addEventListener('click',function () {//为显示的每个页码以及上一页、下一页添加点击事件
-				if (this.getAttribute('class')=='pageprv') {//点击上一页
-					if (pageNo==1) {//若当前页为首页则取消“上一页”的事件注册
-						alert('error');
-					} else {
-						pageNo--;
-						getClassList();
-						if (tipsbanner.style.display=='none') {//切换页面时定位到课程列表顶部
-							scrollTo(0,1094);
-						} else {
-							scrollTo(0,1130);
-						}
-					}
-				} else{
-					if (this.getAttribute('class')=='pagenxt') {//点击下一页
-						if (pageNo==totalPageCount) {
-							return;
-						} else {
-							pageNo++;
-							getClassList();
-							if (tipsbanner.style.display=='none') {
-								scrollTo(0,1094);
-							} else {
-								scrollTo(0,1130);
-							}
-						}		
-					} else {//点击页码
-						pageNo=parseInt(this.innerHTML);
-						getClassList();
-						if (tipsbanner.style.display=='none') {
-							scrollTo(0,1094);
-						} else {
-							scrollTo(0,1130);
-						}
-					}
-				}
-			})
-		}*/
 		var pages=$('j-page').getElementsByTagName('a');
 		pages[0].onclick=function () {//点击上一页
-			if (pageNo!=1) {//若当前页为首页则取消“上一页”的事件注册
+			if (pageNo!=1) {//判断是否为首页
 				pageNo--;
 				getClassList();
 				if (tipsbanner.style.display=='none') {//切换页面时定位到课程列表顶部
@@ -411,7 +371,7 @@ function pageDisplay() {
 			}
 		}
 		pages[pages.length-1].onclick=function () {//点击下一页
-			if (pageNo!=totalPageCount) {
+			if (pageNo!=totalPageCount) {//判断是否为末页
 				pageNo++;
 				getClassList();
 				if (tipsbanner.style.display=='none') {
