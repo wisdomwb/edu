@@ -90,11 +90,64 @@ tipsbannerClose.addEventListener('click',function () {//点击“不再显示”
 })
 var mask0=$('j-mask0');
 var loginbox=$('j-loginbox');
+var form=$('fLogin');
 var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
 var fLoginPasswordInput=$('fLogin_password_input');//密码输入框
+var message=$('j-message');
 var btnLogin=$('btnLogin');//提交按钮
-function md5(msg){
-    return msg;//这里有错，还未解决
+//表单验证
+function validate() {
+	function showMessage(clazz,msg) {//错误提示
+		if (!clazz) {
+			message.innerHTML='';
+			message.classList.remove('err');
+		} else {
+			message.innerHTML=msg;
+			message.classList.add('err');
+		}
+	}
+	function disableSubmit(disabled) {//按钮禁用
+		btnLogin.disabled=!!disabled;
+		if (disabled==true) {
+			btnLogin.classList.add('disabled');//改变按钮样式
+		} else {
+			btnLogin.classList.remove('disabled');//还原按钮样式
+		}
+	}
+	function invalidInput(node,msg) {//输入框错误提示
+		showMessage('err',msg);
+		node.classList.add('error');
+		node.focus();
+	}
+	function clearInvalid(node) {//清空错误提示
+		showMessage();
+		node.classList.remove('error');
+	}
+	form.addEventListener('input',function (event) {
+		// 还原错误状态
+        clearInvalid(event.target);
+        // 还原登录按钮状态
+        disableSubmit(false);
+	})
+	var emsg='';
+	if (fLoginUsernameInput.value.length==0) {
+		emsg="用户名不能为空";
+		invalidInput(fLoginUsernameInput,emsg);
+		disableSubmit(true);
+		return false;
+	}
+	if (fLoginPasswordInput.value.length<=6) {
+		emsg = '密码长度必须大于6位';
+		invalidInput(fLoginPasswordInput,emsg);
+		disableSubmit(true);
+		return false;
+	}else if(!/\d/.test(fLoginPasswordInput.value)||!/[a-z]/i.test(fLoginPasswordInput.value)){
+		emsg = '密码必须包含数字和字母';
+		invalidInput(fLoginPasswordInput,emsg);
+		disableSubmit(true);
+		return false;
+	}
+	return true;
 }
 concern.addEventListener('click',function  () {
 	if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
@@ -109,12 +162,60 @@ concern.addEventListener('click',function  () {
 		mask0.style.display='block';
 		loginbox.style.display='block';
 		btnLogin.addEventListener('click',function () {//点击登录按钮
-			//缺少表单验证
-			fLoginUsernameInput.value=hex_md5(fLoginUsernameInput.value);//使用Md5加密该用户数据
-			fLoginPasswordInput.value=hex_md5(fLoginPasswordInput.value);
-			var options={userName:fLoginUsernameInput.value,password:fLoginPasswordInput.value}//请求参数
+			//ajax请求前验证
+			function showMessage(clazz,msg) {//错误提示
+				if (!clazz) {
+					message.innerHTML='';
+					message.classList.remove('err');
+				} else {
+					message.innerHTML=msg;
+					message.classList.add('err');
+				}
+			}
+			function disableSubmit(disabled) {//按钮禁用
+				btnLogin.disabled=!!disabled;
+				if (disabled==true) {
+					btnLogin.classList.add('disabled');//改变按钮样式
+				} else {
+					btnLogin.classList.remove('disabled');//还原按钮样式
+				}
+			}
+			function invalidInput(node,msg) {//输入框错误提示
+				showMessage('err',msg);
+				node.classList.add('error');
+				node.focus();
+			}
+			function clearInvalid(node) {//清空错误提示
+				showMessage();
+				node.classList.remove('error');
+			}
+			form.addEventListener('input',function (event) {
+				// 还原错误状态
+		        clearInvalid(event.target);
+		        // 还原登录按钮状态
+		        disableSubmit(false);
+			})
+			var emsg='';
+			if (fLoginUsernameInput.value.length==0) {
+				emsg="用户名不能为空";
+				invalidInput(fLoginUsernameInput,emsg);
+				disableSubmit(true);
+				return;
+			}
+			if (fLoginPasswordInput.value.length<=6) {
+				emsg = '密码长度必须大于6位';
+				invalidInput(fLoginPasswordInput,emsg);
+				disableSubmit(true);
+				return;
+			}else if(!/\d/.test(fLoginPasswordInput.value)||!/[a-z]/i.test(fLoginPasswordInput.value)){
+				emsg = '密码必须包含数字和字母';
+				invalidInput(fLoginPasswordInput,emsg);
+				disableSubmit(true);
+				return;
+			}
+			var options={userName:hex_md5(fLoginUsernameInput.value),password:hex_md5(fLoginPasswordInput.value)}//请求参数，将用户名和密码的md5作为参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
-				if (data==1) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
+				if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
 					setCookie('loginSuc','value',saveTime);
 					mask0.style.display='none';
 					loginbox.style.display='none';
@@ -126,7 +227,11 @@ concern.addEventListener('click',function  () {
 						}
 					})
 				}
-				else{alert('用户名或密码错误');}	
+				else{
+					showMessage('err',"用户名或密码输入错误");
+					disableSubmit(true);
+					return;
+				}	
 			})
 		})
 		
