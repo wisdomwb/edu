@@ -110,8 +110,9 @@ concern.addEventListener('click',function  () {
 		loginbox.style.display='block';
 		btnLogin.addEventListener('click',function () {//点击登录按钮
 			//缺少表单验证
-			fLoginPasswordInput.value=hex_md5(fLogin_password_input.value);//使用Md5加密该用户数据
-			var options={userName:fLoginUsernameInput.value,password:fLogin_password_input.value}//请求参数
+			fLoginUsernameInput.value=hex_md5(fLoginUsernameInput.value);//使用Md5加密该用户数据
+			fLoginPasswordInput.value=hex_md5(fLoginPasswordInput.value);
+			var options={userName:fLoginUsernameInput.value,password:fLoginPasswordInput.value}//请求参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
 				if (data==1) {//这里本应是“data==1”但是响应总是0，故暂时改为0。若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
 					setCookie('loginSuc','value',saveTime);
