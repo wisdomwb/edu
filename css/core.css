@@ -83,7 +83,7 @@ body{min-width: 961px;}
 .g-head .nav{line-height: 89px;font-size: 16px;}
 .g-head .nav a:hover{color: #39a030;}
 .g-head .cloud{margin: 0 55px 0 53px;}
-.g-head .search{width: 19px;height: 19px;margin-left: 30px;margin-top: 35px;background: url(../images/icon/search.png);}
+.g-head .search{width: 19px;height: 19px;margin-left: 30px;margin-top: 35px;background: url(../images/icon/search.png);cursor: pointer;}
 .g-head .search:hover{background: url(../images/icon/search-green.png);}
 /*登录弹窗*/
 .m-mask{display: none;position: fixed;left: 0;top: 0;right: 0;bottom: 0;background: #000;opacity: 0.4;}
@@ -93,7 +93,7 @@ body{min-width: 961px;}
 .m-loginbox .item0{margin-top: 15px;}
 .m-loginbox .item1{margin-top: 15px;}
 .m-loginbox .u-txt{background: #fafafa;outline: 1px solid #dfdfdf;box-shadow: 2px 2px 0  0 #f1f1f1 inset;}
-.u-txt .txt{width: 273px;height: 20px;padding:10px 0 13px;line-height: 20px;font-size: 16px;text-indent: .5em;background: transparent;}
+.u-txt .txt{width: 100%;/*这里是为避免chrome自动填充表单后input背景颜色与父级div有差异*/height: 20px;padding:10px 0 13px;line-height: 20px;font-size: 16px;text-indent: .5em;background: transparent;}
 .m-loginbox .u-btn-submit{width: 293px;height: 46px;line-height: 40px;margin-top:29px;box-shadow: 2px 2px 0 0 #d5e3da;cursor:pointer;text-align: center;background: url(../images/icon/button-bd.png) repeat-x;color: #fff;font-size: 16px;}
 .m-loginbox .close{position: absolute;width:12px;height:11px;top:10px;right:8px;background: url(../images/icon/close1.png);cursor: pointer;}
 /*轮播展示*/
