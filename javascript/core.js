@@ -239,33 +239,15 @@ for (var i = 0; i < slideList.length; i++) {
 		interval0=setInterval(turn,5000);
 	})
 };
-//给每一个小圆点添加点击事件
-pointer[0].addEventListener('click',function () {
-	clearInterval(interval0);
-	m=0;
-	turn();
-	interval0=setInterval(turn,5000);
-})
-pointer[1].addEventListener('click',function () {
-	clearInterval(interval0);
-	m=1;
-	turn();
-	interval0=setInterval(turn,5000);
-})
-pointer[2].addEventListener('click',function () {
-	clearInterval(interval0);
-	m=2;
-	turn();
-	interval0=setInterval(turn,5000);
-})
-/*for (var i = 0; i < pointer.length; i++) {
+//给小圆点添加点击事件
+for (var i = 0; i < pointer.length; i++) {
 	pointer[i].addEventListener('click',function  () {
 		clearInterval(interval0);
-		m=i;//这里有错，该如何处理呢？
+		m=parseInt(this.getAttribute('index'));
 		turn();
 		interval0=setInterval(turn,5000);
 	})
-};*/
+};
 // tab切换
 var classTab=$('j-tab').getElementsByTagName('h3');
 var type=10;
