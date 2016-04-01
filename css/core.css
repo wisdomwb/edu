@@ -131,7 +131,7 @@ body{min-width: 961px;}
 .m-school a{font-size: 14px;line-height: 24px;color: #39a030;}
 .m-school a:hover{text-decoration: underline;}
 /*工作环境展示*/
-.m-show{width: 1205px;height: 220px;font-size: 0;padding-top: 2px;background: #f8f8f8;}
+.m-show{height: 220px;font-size: 0;padding-top: 2px;background: #f8f8f8;}
 @media screen and (min-width: 1205px){
 	.m-show{width: 100%;}
 }

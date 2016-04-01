@@ -95,60 +95,7 @@ var fLoginUsernameInput=$('fLogin_username_input');//用户名输入框
 var fLoginPasswordInput=$('fLogin_password_input');//密码输入框
 var message=$('j-message');
 var btnLogin=$('btnLogin');//提交按钮
-//表单验证
-function validate() {
-	function showMessage(clazz,msg) {//错误提示
-		if (!clazz) {
-			message.innerHTML='';
-			message.classList.remove('err');
-		} else {
-			message.innerHTML=msg;
-			message.classList.add('err');
-		}
-	}
-	function disableSubmit(disabled) {//按钮禁用
-		btnLogin.disabled=!!disabled;
-		if (disabled==true) {
-			btnLogin.classList.add('disabled');//改变按钮样式
-		} else {
-			btnLogin.classList.remove('disabled');//还原按钮样式
-		}
-	}
-	function invalidInput(node,msg) {//输入框错误提示
-		showMessage('err',msg);
-		node.classList.add('error');
-		node.focus();
-	}
-	function clearInvalid(node) {//清空错误提示
-		showMessage();
-		node.classList.remove('error');
-	}
-	form.addEventListener('input',function (event) {
-		// 还原错误状态
-        clearInvalid(event.target);
-        // 还原登录按钮状态
-        disableSubmit(false);
-	})
-	var emsg='';
-	if (fLoginUsernameInput.value.length==0) {
-		emsg="用户名不能为空";
-		invalidInput(fLoginUsernameInput,emsg);
-		disableSubmit(true);
-		return false;
-	}
-	if (fLoginPasswordInput.value.length<=6) {
-		emsg = '密码长度必须大于6位';
-		invalidInput(fLoginPasswordInput,emsg);
-		disableSubmit(true);
-		return false;
-	}else if(!/\d/.test(fLoginPasswordInput.value)||!/[a-z]/i.test(fLoginPasswordInput.value)){
-		emsg = '密码必须包含数字和字母';
-		invalidInput(fLoginPasswordInput,emsg);
-		disableSubmit(true);
-		return false;
-	}
-	return true;
-}
+//关注
 concern.addEventListener('click',function  () {
 	if (cookie.loginSuc) {//若已设置登录cookie则调用关注API
 		get('http://study.163.com/webDev/attention.htm',{},function (data) {
@@ -212,7 +159,7 @@ concern.addEventListener('click',function  () {
 				invalidInput(fLoginPasswordInput,emsg);
 				disableSubmit(true);
 				return;
-			}
+			}//验证结束
 			var options={userName:hex_md5(fLoginUsernameInput.value),password:hex_md5(fLoginPasswordInput.value)}//请求参数，将用户名和密码的md5作为参数
 			get('http://study.163.com/webDev/login.htm',options,function  (data) {//登录
 				if (data==1) {//若登录成功,则设置登录成功cookie、登录弹窗消失、调用关注API，
@@ -311,7 +258,7 @@ pointer[2].addEventListener('click',function () {
 	turn();
 	interval0=setInterval(turn,5000);
 })
-/*for (var i = 0; i < pointer.length; i++) {//不知为什么使用for循环添加的click事件不行
+/*for (var i = 0; i < pointer.length; i++) {//为什么使用for循环添加的click事件不行？
 	pointer[i].addEventListener('click',function  () {
 		clearInterval(interval0);
 		m=i;
