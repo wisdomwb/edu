@@ -258,10 +258,10 @@ pointer[2].addEventListener('click',function () {
 	turn();
 	interval0=setInterval(turn,5000);
 })
-/*for (var i = 0; i < pointer.length; i++) {//为什么使用for循环添加的click事件不行？
+/*for (var i = 0; i < pointer.length; i++) {
 	pointer[i].addEventListener('click',function  () {
 		clearInterval(interval0);
-		m=i;
+		m=i;//这里有错，该如何处理呢？
 		turn();
 		interval0=setInterval(turn,5000);
 	})
