@@ -253,6 +253,7 @@ var classTab=$('j-tab').getElementsByTagName('h3');
 var type=10;
 for (var i = 0; i < classTab.length; i++) {
 	classTab[i].addEventListener('click',function () {
+		if (this.getAttribute('class')=='z-crt f-fl') {return;}
 		var tabCrt=$('j-tab').getElementsByClassName('z-crt')[0];
 		tabCrt.setAttribute('class','f-fl');
 		this.setAttribute('class','z-crt f-fl');
