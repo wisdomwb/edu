@@ -253,7 +253,7 @@ var classTab=$('j-tab').getElementsByTagName('h3');
 var type=10;
 for (var i = 0; i < classTab.length; i++) {
 	classTab[i].addEventListener('click',function () {
-		if (this.getAttribute('class')=='z-crt f-fl') {return;}
+		if (this.getAttribute('class')=='z-crt f-fl') {return;}//若点击当前tab则不进行ajax请求
 		var tabCrt=$('j-tab').getElementsByClassName('z-crt')[0];
 		tabCrt.setAttribute('class','f-fl');
 		this.setAttribute('class','z-crt f-fl');
