@@ -445,7 +445,7 @@ var close1=document.getElementById('close1');
 sVideo.addEventListener('click',function () {
 	mask1.style.display='block';
 	videobox.style.display='block';
-	player.lad();//重新加载
+	player.load();//重新加载
 	player.play();//播放
 })
 close1.addEventListener('click',function () {
