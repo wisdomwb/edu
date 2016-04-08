@@ -1,3 +1,4 @@
+//部分函数的封装来自网易云课堂的《前端开发工程师微专业》课程
 // $(id)方法获取对象
 var $ = function (id) {
         return document.getElementById(id);
@@ -400,7 +401,7 @@ function pageDisplay() {
 	//点击事件
 	var pageClick=function() {
 		var pages=$('j-page').getElementsByTagName('a');
-		pages[0].onclick=function () {//点击上一页
+		pages[0].addEventListener('click',function () {//点击上一页
 			if (pageNo!=1) {//判断是否为首页
 				pageNo--;
 				getClassList();
@@ -410,8 +411,8 @@ function pageDisplay() {
 					scrollTo(0,1130);
 				}
 			}
-		}
-		pages[pages.length-1].onclick=function () {//点击下一页
+		})
+		pages[pages.length-1].addEventListener('click',function () {//点击下一页
 			if (pageNo!=totalPageCount) {//判断是否为末页
 				pageNo++;
 				getClassList();
@@ -421,7 +422,7 @@ function pageDisplay() {
 					scrollTo(0,1130);
 				}
 			}
-		}
+		})
 		for (var i = 1; i < pages.length-1; i++) {//点击页码
 			pages[i].addEventListener('click',function () {
 				pageNo=parseInt(this.innerHTML);
