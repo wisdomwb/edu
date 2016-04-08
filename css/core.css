@@ -1,3 +1,4 @@
+/*参考网易nec*/
 /*reset*/
 html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
 header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
@@ -145,10 +146,10 @@ body{min-width: 961px;}
 @media screen and (min-width: 1205px){
 	.g-main{width:980px;}
 }
-.g-main .m-tab{width:400px;height:50px;box-shadow: 0 1px 1px 0 #d4d3d3;}
-.g-main .m-tab h3{width: 200px;height: 50px;font:20px/50px "微软雅黑";text-align: center;cursor: pointer;background: #fff;color: #666;}
-.g-main .m-tab .z-crt{background: #39a030;color: #fff;cursor: default;}
-.g-main .m-list{margin-top: 30px;margin-bottom:11px;}
+.m-tab{width:400px;height:50px;box-shadow: 0 1px 1px 0 #d4d3d3;}
+.m-tab h3{width: 200px;height: 50px;font:20px/50px "微软雅黑";text-align: center;cursor: pointer;background: #fff;color: #666;}
+.m-tab .z-crt{background: #39a030;color: #fff;cursor: default;}
+.m-list{margin-top: 30px;margin-bottom:11px;}
 .g-main li{width: 225px;margin-right: 20px;margin-bottom:20px;background: #fff;box-shadow: 0 1px 1px 0 #e6e6e6;}
 .g-main .img0{display: block;width:223px;height:124px;margin: 1px;margin-bottom: 0;}
 .g-main .title0{margin-top: 10px;margin-left: 5px;width: 210px;font-weight: normal;}
@@ -167,29 +168,29 @@ body{min-width: 961px;}
 .g-main .right .num1{margin-top: 17px;margin-bottom: 13px;}
 .g-main .right .author1{margin-bottom: 8px;}
 .g-main .description{line-height: 24px;padding:17px 34px 18px 20px;font-size: 14px;background: #f8f8f8;color: #666;}
-.g-main .m-page{margin-right: 20px;text-align: center;font-size: 0;}
-.g-main .m-page a{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;/*关键*/line-height: 20px;color: #666;font-size: 14px;}
-.g-main .m-page span{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;line-height: 10px;color: #666;font-size: 14px;}
-.g-main .m-page .z-crt{color: #39a030;cursor: default;}
-.g-main .m-page .z-crt:hover{background: inherit;color: #39a030;}
-.g-main .m-page a:hover{background: #9dd8b1;color: #fff;}
-.g-main .m-page .pageprv,.g-main .m-page .pageprv:hover{width: 30px;margin-left: 0;background: #9dd8b1 url(../images/icon/pageprv.png) center center no-repeat;}
-.g-main .m-page .pagenxt,.g-main .m-page .pagenxt:hover{width: 30px;background: #9dd8b1 url(../images/icon/pagenxt.png) center center no-repeat;}
-.g-main .m-page .disabled,.g-main .m-page .disabled:hover{background-color: #ddd;cursor: default;}
+.m-page{margin-right: 20px;text-align: center;font-size: 0;}
+.m-page a{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;/*关键*/line-height: 20px;color: #666;font-size: 14px;}
+.m-page span{display: inline-block;width: 20px;height:20px;margin-left: 10px;vertical-align: top;line-height: 10px;color: #666;font-size: 14px;}
+.m-page .z-crt{color: #39a030;cursor: default;}
+.m-page .z-crt:hover{background: inherit;color: #39a030;}
+.m-page a:hover{background: #9dd8b1;color: #fff;}
+.m-page .pageprv,.g-main .m-page .pageprv:hover{width: 30px;margin-left: 0;background: #9dd8b1 url(../images/icon/pageprv.png) center center no-repeat;}
+.m-page .pagenxt,.g-main .m-page .pagenxt:hover{width: 30px;background: #9dd8b1 url(../images/icon/pagenxt.png) center center no-repeat;}
+.m-page .disabled,.g-main .m-page .disabled:hover{background-color: #ddd;cursor: default;}
 /*侧栏部分*/
 .g-side{width: 223px;}
-.g-side .m-intro,.g-side .m-hot{margin-bottom: 21px;background: #fff;box-shadow: 0 1px 1px 0 #d4d3d3;}
+.m-intro,.g-side .m-hot{margin-bottom: 21px;background: #fff;box-shadow: 0 1px 1px 0 #d4d3d3;}
 .g-side .title{height: 55px;line-height: 55px;font-size: 16px;text-indent: 20px;border-bottom: 1px solid #ddd;}
-.g-side .m-intro .content{padding-bottom: 20px;}
-.g-side .m-intro p{margin: 17px auto 7px 22px;font-size: 14px;color: #666;}
-.g-side .m-intro img{display: block;margin-left: 22px;}
-.g-side .m-hot ul{margin-top: 19px;}
-.g-side .m-hot li{margin:0 auto 20px 20px;cursor: pointer;}
-.g-side .m-hot img{width: 50px;height:50px;}
-.g-side .m-hot h4{width: 120px;margin-left: 62px;font-size: 14px;line-height: 14px;font-weight: normal;}
-.g-side .m-hot p{margin-left: 62px;margin-top: 13px;}
-.g-side .m-hot p i{display: inline-block;width: 11px;height: 11px;background: url(../images/icon/people.png) no-repeat;}
-.g-side .m-hot p span{margin-left: 6px;color: #999;}
+.m-intro .content{padding-bottom: 20px;}
+.m-intro p{margin: 17px auto 7px 22px;font-size: 14px;color: #666;}
+.m-intro img{display: block;margin-left: 22px;}
+.m-hot ul{margin-top: 19px;}
+.m-hot li{margin:0 auto 20px 20px;cursor: pointer;}
+.m-hot img{width: 50px;height:50px;}
+.m-hot h4{width: 120px;margin-left: 62px;font-size: 14px;line-height: 14px;font-weight: normal;}
+.m-hot p{margin-left: 62px;margin-top: 13px;}
+.m-hot p i{display: inline-block;width: 11px;height: 11px;background: url(../images/icon/people.png) no-repeat;}
+.m-hot p span{margin-left: 6px;color: #999;}
 /*视频弹窗*/
 .m-videobox{display: none;position: fixed;left: 50%;top: 50%;transform: translate(-50%,-50%);padding:24px 30px 20px;background: #fff;z-index: 1001;}
 .m-videobox h3{font-size: 18px;line-height: 28px;font-weight: normal;color: #444;}
@@ -206,10 +207,10 @@ body{min-width: 961px;}
 .g-foot .cprt .logo{margin-bottom: 23px;}
 .g-foot .cprt p{line-height: 25px;font-size: 12.5px;letter-spacing: 0.6px;}
 .g-foot .link{margin:82px 99px 79px 0; }
-.g-foot .m-item .title{margin-bottom: 7px;}
-.g-foot .m-item .content{font-size: 14px;line-height: 29px;}
-.g-foot .m-item .content a{color: #bebfc0;}
-.g-foot .m-item .content a:hover{text-decoration: underline;}
+.m-item .title{margin-bottom: 7px;}
+.m-item .content{font-size: 14px;line-height: 29px;}
+.m-item .content a{color: #bebfc0;}
+.m-item .content a:hover{text-decoration: underline;}
 .g-foot .we{margin: 82px 73px 79px 0;}
 .g-foot .we i{display: inline-block;width: 20px;height: 16px;margin-left: 11px;background: url(../images/icon/weibo.png) no-repeat;vertical-align: -3px;}
 .g-foot .more{margin-top: 82px;}
